@@ -1,0 +1,120 @@
+@import views.html.helper
+@import model.site.facility.SiteViewValueFacilityList
+@import play.api.data.Form
+
+@(vv: SiteViewValueFacilityList)
+
+@views.html.common.layout.InnerContent("site-app-new-user-form", "content") {
+  <h3 class="content__section header">
+      逆検索
+  </h3>
+  
+@** --[ 検索フォーム ]---------------------------------------------------------- *@
+  <div class="content__section form">
+    @helper.form(action = controllers.article.routes.ArticleController.search) {
+      @** 都道府県 *@
+      <div class="form__section pref inline">
+        @helper.select(
+          field   = form("locationId"),
+          options = vv.location.map(v => (v.id, v.namePref)),
+          '_label           -> "都道府県",
+          '_default         -> "未選択",
+          '_showConstraints -> false
+        )
+      </div>
+
+      @** カテゴリ *@
+      <div class="form__section pref inline">
+        @helper.select(
+          field   = form("locationId"),
+          options = vv.category.map(v => (v.id, v.name)),
+          '_label           -> "カテゴリ",
+          '_default         -> "未選択",
+          '_showConstraints -> false
+        )
+      </div>
+
+      <div class="form__section submit inline">
+        <button class="button" type="submit">
+          <span class="submit__text">検索</span>
+        </button>
+      </div>
+    }
+  </div>
+  
+  @** --[ 一覧 ]-------------------------------------------------------- *@
+<div class="container">
+<div class="row">
+  <div class="col">
+    <div class="content__section content">
+      @for(research <- vv.research) {
+        <article class="facility-list-item">
+          <a href="#">
+            <div class="item-panel__wrapper">
+              <header class="facility-item__header">
+                <div class="name">
+                  @research.name
+                </div>
+              </header>
+              <section class="facility-item__content">
+                <div>
+                  <div class="item-panel__content">
+                    <div class="address">
+                      <label class="inline">住所:</label>
+                      <p class="inline">
+                        @research.address
+                      </p>
+                    </div>
+                    <div class="description">
+                      <label class="inline">備考:</label>
+                      <p class="inline">
+                        @research.description
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </a>
+        </article>
+      }
+    </div>
+  </div>
+  <div class="col">
+    <div class="content__section content">
+      @for(lesson <- vv.lesson) {
+        <article class="facility-list-item">
+          <a href="#">
+            <div class="item-panel__wrapper">
+              <header class="facility-item__header">
+                <div class="name">
+                  @lesson.name
+                </div>
+              </header>
+              <section class="facility-item__content">
+                <div>
+                  <div class="item-panel__content">
+                    <div class="address">
+                      <label class="inline">住所:</label>
+                      <p class="inline">
+                        @lesson.address
+                      </p>
+                    </div>
+                    <div class="description">
+                      <label class="inline">備考:</label>
+                        <p class="inline">
+                          @lesson.description
+                        </p>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </a>
+        </article>
+      }
+    </div>
+  </div>
+</div>
+</div>
+}
