@@ -13,7 +13,7 @@ import persistence.category.model.Category
 
 // 表示: 施設一覧
 //~~~~~~~~~~~~~~~~~~~~~
-case class SiteViewValueFacilityList(
+case class SiteViewValueInputRequest(
   layout:   ViewValuePageLayout,
   location: Seq[Location],
   category: Seq[Category]

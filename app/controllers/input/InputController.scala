@@ -1,5 +1,7 @@
 package controllers.input
 
+/*
+
 import play.api.i18n.I18nSupport
 import play.api.mvc.{AbstractController, MessagesControllerComponents}
 
@@ -110,3 +112,5 @@ class InputController @javax.inject.Inject()(
   }
 
 }
+
+*/

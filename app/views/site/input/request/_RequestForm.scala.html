@@ -6,11 +6,14 @@
  *@
 
 @import views.html.helper
-@import model.site.app.SiteViewValueRequest
+
+@import model.site.app.SiteViewValueInputRequest
 @import persistence.udb.model.User
 @import play.api.data.Form
 
-@(vv: SiteViewValueRequest)(implicit messages: play.api.i18n.Messages)
+@(vv: SiteViewValueInputRequest)(implicit messages: play.api.i18n.Messages)
+
+@**
 
 @** ユーザー登録フォーム *@
 @views.html.common.layout.InnerContent("site-app-new-user-form", "content") {
@@ -88,3 +91,4 @@
     }
   </div>
 }
+*@

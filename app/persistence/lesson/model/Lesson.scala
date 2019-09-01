@@ -12,18 +12,15 @@ import play.api.data.Forms._
 import java.time.LocalDateTime
 import persistence.geo.model.Location
 import persistence.category.model.Category
-import persistence.request.model.Request
 
 // 施設情報 (sample)
 //~~~~~~~~~~~~~
 case class Lesson(
   id:          Option[Lesson.Id],                // 施設ID
-  requestId:  Request.Id,
   locationId:  Location.Id,                        // 地域ID
   categoryId:  Category.Id,
   name:        String,                             // 施設名
   detail:      String,                             // 施設名
-  address:     String,                             // 住所(詳細)
   maxPeaple:   Int,
   minPeaple:   Int,
   fee:         Int,
@@ -40,10 +37,8 @@ case class Lesson(
 //)
 
 case class LessonFromInput (
-  id:          Option[Lesson.Id],                // 施設ID
   name:        String,                             // 施設名
   detail:      String,                             // 施設名
-  address:     String,                             // 住所(詳細)
   maxPeaple:   Int,
   minPeaple:   Int,
   fee:         Int,
@@ -53,8 +48,8 @@ case class LessonFromInput (
   updatedAt:   LocalDateTime = LocalDateTime.now,  // データ更新日
   createdAt:   LocalDateTime = LocalDateTime.now   // データ作成日
 ) {
-  def toLesson(locationId: Location.Id, categoryId: Category.Id, requestId: Request.Id) =
-    Lesson(id, requestId, locationId, categoryId, name, detail, address, maxPeaple, minPeaple, fee, createDate, deadlineDate, scheduleDate)
+  def toLesson(locationId: Location.Id, categoryId: Category.Id) =
+    Lesson(None, locationId, categoryId, name, detail, maxPeaple, minPeaple, fee, createDate, deadlineDate, scheduleDate)
 }
 
 // コンパニオンオブジェクト
@@ -70,12 +65,23 @@ object Lesson {
     mapping(
       "name" -> text,
       "detail" -> text,
-      "address" -> text,
       "max_peaple" -> number,
       "min_peaple" -> number,
       "fee" -> number,
-      "deadline_date" -> LocalDateTime("yyyy-mm-ddTHH:MM"),
-      "schedule_date" -> LocalDateTime("yyyy-mm-ddTHH:MM"),
-    )(LessonFromInput.apply)(LessonFromInput.unapply)
+      "deadline_date" -> localDateTime("yyyy-mm-ddTHH:MM"),
+      "schedule_date" -> localDateTime("yyyy-mm-ddTHH:MM"),
+    )(
+      (x1, x2, x3, x4, x5, x6, x7) => LessonFromInput(
+        name         = x1,
+        detail       = x2,
+        maxPeaple    = x3,
+        minPeaple    = x4,
+        fee          = x5,
+        deadlineDate = x6,
+        scheduleDate = x7
+      )
+    )(LessonFromInput.unapply(_).map(t =>
+      (t._1, t._2, t._3, t._4, t._5, t._7, t._8)
+    ))
   )
 }
