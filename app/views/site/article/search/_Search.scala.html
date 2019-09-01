@@ -1,5 +1,5 @@
 @import views.html.helper
-@import model.site.facility.SiteViewValueFacilityList
+@import model.site.search.SiteViewValueSearch
 @import play.api.data.Form
 
 @(vv: SiteViewValueFacilityList)
@@ -8,7 +8,7 @@
   <h3 class="content__section header">
       逆検索
   </h3>
-  
+
 @** --[ 検索フォーム ]---------------------------------------------------------- *@
   <div class="content__section form">
     @helper.form(action = controllers.article.routes.ArticleController.search) {
@@ -26,7 +26,7 @@
       @** カテゴリ *@
       <div class="form__section pref inline">
         @helper.select(
-          field   = form("locationId"),
+          field   = form("CategoryId"),
           options = vv.category.map(v => (v.id, v.name)),
           '_label           -> "カテゴリ",
           '_default         -> "未選択",
@@ -41,7 +41,7 @@
       </div>
     }
   </div>
-  
+
   @** --[ 一覧 ]-------------------------------------------------------- *@
 <div class="container">
 <div class="row">
