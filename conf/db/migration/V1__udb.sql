@@ -10,8 +10,6 @@ CREATE TABLE "udb_user" (
   "updated_at"                    TIMESTAMP    NOT     NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   "created_at"                    TIMESTAMP    NOT     NULL DEFAULT CURRENT_TIMESTAMP,
   "user_detail"                   VARCHAR(255) DEFAULT NULL,
-  "user_money"                    INT          DEFAULT 100000000 NOT NULL,
-  "category_id"                    VARCHAR(8)   NOT     NULL,
   UNIQUE KEY "udb_user_ukey01" ("email")
 ) ENGINE=InnoDB;
 
@@ -71,7 +69,4 @@ CREATE TABLE "participation_status_relationship" (
  "id"                             INT          NOT     NULL,
  "teacher_request_id"             INT          NOT     NULL
 ) ENGINE=InnoDB;
-
-
-
 
