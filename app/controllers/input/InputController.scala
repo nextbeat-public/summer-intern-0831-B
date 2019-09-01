@@ -89,7 +89,7 @@ class InputController @javax.inject.Inject()(
   * 講師提案の追加
   */
   def lessonInput(requestId: Int) = Action.async { implicit r =>
-    formForRequest.bindFromRequest.fold(
+    formForLesson.bindFromRequest.fold(
       errors => {
         for {
           locSeq <- daoLocation.filterByIds(Location.Region.IS_PREF_ALL)
@@ -98,11 +98,11 @@ class InputController @javax.inject.Inject()(
           Redirect(routes.TopController.show)
         }
       },
-      lesson => {
+      lessonFromInput => {
         for {
-          lesson.locationId <- requestDao.getLocationIdById(requestId)
-          lesson.categoryId <- requestDao.getCategoryIdById(requestId)
-          lesson.requestId  <- requestId
+          requestLocationId <- requestDao.getLocationIdById(requestId)
+          requestCategoryId <- requestDao.getCategoryIdById(requestId)
+          lesson <- lessonFromInput.toLesson(requestId, requestCategoryId, requestLocationId)
         } yield lessonDao.insert(lesson)
       }
     )

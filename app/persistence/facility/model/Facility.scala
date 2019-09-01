@@ -43,4 +43,3 @@ object Facility {
     )(FacilitySearch.apply)(FacilitySearch.unapply)
   )
 }
-
