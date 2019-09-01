@@ -1,0 +1,18 @@
+@import views.html.helper
+@import model.site.facility.SiteViewValueFacilityList
+@import play.api.data.Form
+
+@import persistence.facility.model.FacilitySearc
+@(vv: SiteViewValueFacilityList, form: Form[FacilitySearch])(implicit messages: play.api.i18n.Messages)
+
+@** 施設検索一覧 *@
+@views.html.common.layout.InnerContent("site-app-new-user-form", "content") {
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  @** --[ 見出し ]---------------------------------------------------------- *@
+  <h3 class="content__section header">
+    <span class="header__title">地方創生 × 学習</span>
+  </h3>
+
+  <a class="btn btn-primary" href="http://localhost:9000/app/new-user" role="button">検索</a><br>
+  <a class="btn btn-primary" href="http://localhost:9000/recruit/intership-for-summer-21" role="button">希望</a>
+}
