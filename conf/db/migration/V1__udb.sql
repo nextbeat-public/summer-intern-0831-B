@@ -40,8 +40,8 @@ CREATE TABLE "user_request" (
  "user_request_name"              VARCHAR(255) NOT     NULL,
  "user_request_detail"            VARCHAR(255) DEFAULT NULL,
  "user_request_date"              DATE,
- "user_request_category"          VARCHAR(255) NOT     NULL,
- "location_id"                    INT,
+ "category_id"                    VARCHAR(8)   NOT     NULL,
+ "location_id"                    VARCHAR(8)   NOT     NULL,
  "user_request_good"              INT,
  "id"                             INT          NOT     NULL
 ) ENGINE=InnoDB;
@@ -61,6 +61,8 @@ CREATE TABLE "teacher_request" (
  "teacher_request_minimum_people" INT,
  "teacher_request_scheduled_date" DATE         NOT     NULL,
  "teacher_request_study_fee"      INT          NOT     NULL,
+ "category_id"                    VARCHAR(8)   NOT     NULL,
+ "location_id"                    VARCHAR(8)   NOT     NULL,
  "user_request_id"                INT          NOT     NULL,
  "id"                             INT          NOT     NULL
 ) ENGINE=InnoDB;
