@@ -10,7 +10,7 @@ import play.api.db.slick.DatabaseConfigProvider
 import play.api.db.slick.HasDatabaseConfigProvider
 
 
-class LocationDAO @javax.inject.Inject()(
+class CategoryDAO @javax.inject.Inject()(
   val dbConfigProvider: DatabaseConfigProvider
 ) extends HasDatabaseConfigProvider[JdbcProfile] {
   import profile.api._
@@ -20,8 +20,7 @@ class LocationDAO @javax.inject.Inject()(
 
   // --[ データ処理定義 ] ------------------------------------------------------
   /**
-   * 地域情報の取得
-   * 検索業件: ロケーションID (全国地方公共団体コード)
+   * カテゴリIDからカテゴリの取得
    */
   def get(id: Category.Id): Future[Option[Category]] =
     db.run {
