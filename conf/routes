@@ -18,15 +18,15 @@ POST  /login                            controllers.app.AuthController.loginComm
 GET  /                            controllers.article.TopController.show
 
 # --[ 記事ページ ]----------------------------------------------------------------
-GET  /search                      controllers.article.ArticleController.search(locationId: Option[Int], category: Option[String])
+GET  /search                      controllers.article.ArticleController.search(locationId: Option[String], categoryId: Option[String])
 GET  /request/:requestId          controllers.article.ArticleController.showRequest(requestId: Int)
 GET  /lesson/:lessonId            controllers.article.ArticleController.showLesson(lessonId: Int)
 
 # --[ 入力ページ ]----------------------------------------------------------------　
 GET  /request/input               controllers.input.InputController.requestPage
 POST /request/input               controllers.input.InputController.requestInput
-GET  /lesson/input                controllers.input.InputController.lessonPage
-POST /lesson/input                controllers.input.InputController.lessonInput
+GET  /request/:requestId/input    controllers.input.InputController.lessonPage(requestId: Int)
+POST /request/:requestId/input    controllers.input.InputController.lessonInput(requestId: Int)
 
 # --[ 特集ページ ]--------------------------------------------------------------
 GET  /recruit/intership-for-summer-21  controllers.recruit.InternshipForSummer21Controller.view
