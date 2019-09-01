@@ -1,7 +1,5 @@
 package controllers.input
 
-/*
-
 import play.api.i18n.I18nSupport
 import play.api.mvc.{AbstractController, MessagesControllerComponents}
 
@@ -58,14 +56,14 @@ class InputController @javax.inject.Inject()(
           locSeq <- daoLocation.filterByIds(Location.Region.IS_PREF_ALL)
           catSeq <- daoCategory.findAll
         } yield {
-          Redirect(routes.TopController.show)
+          Redirect("/")
         }
       },
       request => {
         requestDao.insert(request)
       }
     )
-    Redirect(routes.TopController.show)
+    Redirect("/")
   }
 
   /**
@@ -97,7 +95,7 @@ class InputController @javax.inject.Inject()(
           locSeq <- daoLocation.filterByIds(Location.Region.IS_PREF_ALL)
           catSeq <- daoCategory.findAll
         } yield {
-          Redirect(routes.TopController.show)
+          Redirect("/")
         }
       },
       lessonFromInput => {
@@ -108,9 +106,7 @@ class InputController @javax.inject.Inject()(
         } yield lessonDao.insert(lesson)
       }
     )
-    Redirect(routes.TopController.show)
+    Redirect("/")
   }
 
 }
-
-*/
