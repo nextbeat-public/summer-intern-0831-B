@@ -15,7 +15,7 @@ POST  /login                            controllers.app.AuthController.loginComm
 #GET  /facility/search                  controllers.facility.FacilityController.search
 
 # --[ Topページ ]----------------------------------------------------------------
-GET  /                            controllers.article.TopController.show
+GET  /                            controllers.top.TopController.show
 
 # --[ 記事ページ ]----------------------------------------------------------------
 GET  /search                      controllers.article.ArticleController.search(locationId: Option[String], categoryId: Option[String])

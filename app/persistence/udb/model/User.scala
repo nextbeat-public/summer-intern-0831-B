@@ -23,8 +23,7 @@ case class User(
   address:   String,                             // 住所
   updatedAt: LocalDateTime = LocalDateTime.now,  // データ更新日
   createdAt: LocalDateTime = LocalDateTime.now,  // データ作成日
-  userDetail: ,
-  useSpecia
+  userDetail: String,
 )
 
 // コンパニオンオブジェクト
