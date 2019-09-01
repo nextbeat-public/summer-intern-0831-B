@@ -12,11 +12,13 @@ import play.api.data.Forms._
 import java.time.LocalDateTime
 import persistence.geo.model.Location
 import persistence.category.model.Category
+import persistence.udb.model.User
 
 case class Request(
   id:          Option[Request.Id],                 // 施設ID
   locationId:  Location.Id,                        // 地域ID
   categoryId:  Category.Id,
+  userId:      User.Id = 0,
   name:        String,                             // 施設名
   detail:      String,                             // 住所(詳細)
   date:        LocalDateTime = LocalDateTime.now,  // データ更新日
@@ -37,10 +39,15 @@ object Request{
   // --[ 管理ID ]---------------------------------------------------------------
   type Id = Long
 
-//  // --[ フォーム定義 ]---------------------------------------------------------
-//  val formForFacilitySearch = Form(
-//    mapping(
-//      "locationId" -> optional(text),
-//    )(FacilitySearch.apply)(FacilitySearch.unapply)
-//  )
+  // --[ フォーム定義 ]---------------------------------------------------------
+  val formForRequest = Form(
+    mapping(
+      "locationId" -> text,
+      "categoryId" -> text,
+      "name" -> text,
+      "detail" -> text,
+      "date" -> localDateTime("yyyy-mm-ddTHH:MM"),
+      "numGood" -> number
+    )(Request.apply)(Request.unapply)
+  )
 }
