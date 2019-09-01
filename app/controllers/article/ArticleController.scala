@@ -113,3 +113,4 @@ class ArticleController @javax.inject.Inject()(
         Ok(views.html.site.article.lesson.Main(vv))
       }
     }
+}
