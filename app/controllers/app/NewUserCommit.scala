@@ -53,9 +53,9 @@ class NewUserCommitController @Inject()(
           id <- daoUser.add(form.toUser)
           _  <- daoUserPassword.add(form.toUserPassword(id))
         } yield {
-          Redirect(routes.TopController.show)
+          Redirect("/") //Redirect(routes.TopController.show)
             .withSession(
-              request.session + ("user_id" -> id.toString)
+              r.session + ("user_id" -> id.toString)
             )
         }
       }
