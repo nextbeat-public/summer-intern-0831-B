@@ -22,7 +22,9 @@ case class User(
   pref:      Location.Id,                        // 都道府県
   address:   String,                             // 住所
   updatedAt: LocalDateTime = LocalDateTime.now,  // データ更新日
-  createdAt: LocalDateTime = LocalDateTime.now   // データ作成日
+  createdAt: LocalDateTime = LocalDateTime.now,  // データ作成日
+  userDetail: ,
+  useSpecia
 )
 
 // コンパニオンオブジェクト
