@@ -24,5 +24,32 @@ class InputController @javax.inject.Inject()(
 ) extends AbstractController(cc) with I18nSupport {
   implicit lazy val executionContext = defaultExecutionContext
 
+  /**
+  * 住民提案の入力ページ
+  */
+  def requestPage = (Action andThen AuthenticationAction()).async { implicit request =>
+
+  }
+
+  /**
+  * 住民提案の追加
+  */
+  def requestInput = Action.async { implicit request =>
+
+  }
+
+  /**
+  * 講師提案の入力ページ
+  */
+  def lessonPage(requestId: Int) = (Action andThen AuthenticationAction()).async { implicit request =>
+
+  }
+
+  /**
+  * 講師提案の追加
+  */
+  def requestInput(requestId: Int) = Action.async { implicit request =>
+
+  }
 
 }
