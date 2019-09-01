@@ -18,7 +18,7 @@ POST  /login                            controllers.app.AuthController.loginComm
 GET  /                            controllers.article.TopController.show
 
 # --[ 記事ページ ]----------------------------------------------------------------
-GET  /search                      controllers.article.ArticleController.search
+GET  /search                      controllers.article.ArticleController.search(locationId: Option[Int], category: Option[String])
 GET  /request/:requestId          controllers.article.ArticleController.showRequest(requestId: Int)
 GET  /lesson/:lessonId            controllers.article.ArticleController.showLesson(lessonId: Int)
 
