@@ -12,6 +12,7 @@ import play.api.data.Forms._
 import java.time.LocalDateTime
 import persistence.geo.model.Location
 import persistence.category.model.Category
+import persistence.udb.model.User
 
 // 施設情報 (sample)
 //~~~~~~~~~~~~~
@@ -19,6 +20,7 @@ case class Lesson(
   id:          Option[Lesson.Id],                // 施設ID
   locationId:  Location.Id,                        // 地域ID
   categoryId:  Category.Id,
+  userId:      User.Id,
   name:        String,                             // 施設名
   detail:      String,                             // 施設名
   maxPeaple:   Int,
