@@ -31,7 +31,7 @@ class ArticleController @javax.inject.Inject()(
     /**
     * 検索
     */
-    def search(locationId: Option[String], categoryId: Option[String]) = (Action andThen AuthenticationAction()).async {
+    def search(locationId: Option[String], categoryId: Option[String]) = (Action andThen AuthenticationAction()).async { implicit request =>
       for {
         locSeq     <- daoLocation.filterByIds(Location.Region.IS_PREF_ALL)
         catSeq     <- daoCategory.findAll
@@ -81,7 +81,7 @@ class ArticleController @javax.inject.Inject()(
     /**
     * ユーザ提案
     */
-    def showRequest(requestId: Int) = Action.async {
+    def showRequest(requestId: Int) = Action.async { implicit request =>
       for {
         locSeq  <- daoLocation.filterByIds(Location.Region.IS_PREF_ALL)
         catSeq  <- daoCategory.findAll
@@ -99,7 +99,7 @@ class ArticleController @javax.inject.Inject()(
     /**
     * 授業提案
     */
-    def showLesson(lessonId: Int) = Action.async {
+    def showLesson(lessonId: Int) = Action.async { implicit request =>
       for {
         locSeq <- daoLocation.filterByIds(Location.Region.IS_PREF_ALL)
         catSeq <- daoCategory.findAll
