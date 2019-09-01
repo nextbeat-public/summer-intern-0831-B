@@ -73,7 +73,7 @@ class RequestDAO @javax.inject.Inject()(
   * requestの追加
   */
   def insert(request: Request) = {
-    val insertData: Organization = Organization(None, request.name, request.detail, LocalDateTime..now/*仮*/, request.numGood, request.categoryId.get, request.locationId)
+    val insertData: Request = Request(None, request.name, request.detail, LocalDateTime..now/*仮*/, request.numGood, request.categoryId.get, request.locationId)
     db.run {
       slick returning slick.map(_.id) += insertData
     }
