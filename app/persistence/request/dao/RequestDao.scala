@@ -1,14 +1,14 @@
 package persistence.request.dao
 
 import java.time.LocalDateTime
-import scala.concurrent.Future
 
+import scala.concurrent.Future
 import slick.jdbc.JdbcProfile
 import play.api.db.slick.DatabaseConfigProvider
 import play.api.db.slick.HasDatabaseConfigProvider
 import persistence.request.model._
 import persistence.geo.model.Location
-import persistence.category.model.Location
+import persistence.category.model.Category
 
 //---- DAO ----//
 class RequestDAO @javax.inject.Inject()(
@@ -55,7 +55,7 @@ class RequestDAO @javax.inject.Inject()(
   def filterByCategoryIds(categoryId: Category.Id): Future[Seq[Request]] =
     db.run {
       slick
-        .filter(_.categoryId === categoryIds)
+        .filter(_.categoryId === categoryId)
         .result
     }
 
@@ -65,7 +65,7 @@ class RequestDAO @javax.inject.Inject()(
   def filterByLocationAndCategoryIds(locationId: Seq[Location.Id], categoryId: Category.Id): Future[Seq[Request]] =
     db.run {
       slick
-        .filter(_.locationId inSet locationId && _.categoryId === categoryIds)
+        .filter(x => (x.locationId inSet locationId) && (x.categoryId === categoryId))
         .result
     }
 
@@ -73,9 +73,9 @@ class RequestDAO @javax.inject.Inject()(
   * requestの追加
   */
   def insert(request: Request) = {
-    val insertData: Organization = Organization(None, request.name.get, request.detail.get, request.date.get, request.numGood.get, request.categoryId.get, request.locationId.get)
+    val entWithNoId = request.copy(id = None)
     db.run {
-      slick returning slick.map(_.id) += insertData
+      slick returning slick.map(_.id) += entWithNoId
     }
   }
 
@@ -95,8 +95,15 @@ class RequestDAO @javax.inject.Inject()(
 
     // The * projection of the table
     def * = (
-      id.?, name, detail, date, numGood, categoryId, locationId,
-      updatedAt, createdAt
+      id.?,
+      name,
+      detail,
+      date,
+      numGood,
+      categoryId,
+      locationId,
+      updatedAt,
+      createdAt
     ) <> (
       /** The bidirectional mappings : Tuple(table) => Model */
       (Request.apply _).tupled,

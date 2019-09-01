@@ -11,30 +11,22 @@ GET   /login                            controllers.app.AuthController.login
 POST  /login                            controllers.app.AuthController.loginCommit
 
 # --[ 施設ページ ]----------------------------------------------------------------
-#GET  /facility/list                    controllers.facility.FacilityController.list
-#GET  /facility/search                  controllers.facility.FacilityController.search
+GET  /facility/list                    controllers.facility.FacilityController.list
+GET  /facility/search                  controllers.facility.FacilityController.search
 
 # --[ Topページ ]----------------------------------------------------------------
-GET  /                            controllers.article.TopController.show
+GET  /                            controllers.top.TopController.show
 
 # --[ 記事ページ ]----------------------------------------------------------------
 GET  /search                      controllers.article.ArticleController.search(locationId: Option[String], categoryId: Option[String])
-GET  /request/:requestId          controllers.article.ArticleController.showRequest(requestId: Int)
-GET  /lesson/:lessonId            controllers.article.ArticleController.showLesson(lessonId: Int)
+GET  /request/:requestId          controllers.article.ArticleController.showRequest(requestId: Long)
+GET  /lesson/:lessonId            controllers.article.ArticleController.showLesson(lessonId: Long)
 
 # --[ 入力ページ ]----------------------------------------------------------------　
 GET  /request/input               controllers.input.InputController.requestPage
-POST /request/input               controllers.input.InputController.requestInput
-GET  /request/:requestId/input    controllers.input.InputController.lessonPage(requestId: Int)
-POST /request/:requestId/input    controllers.input.InputController.lessonInput(requestId: Int)
-
-# --[ 検索ページ ]----------------------------------------------------------------
-GET  /search                         controllers.search.SearchController.search 
-
-# --[ ユーザ提案ページ ]----------------------------------------------------------------
-GET  /request/:id                    controllers.facility.RequestController.show(id: Int)
-
-# --[ ページ ]----------------------------------------------------------------
+# POST /request/input               controllers.input.InputController.requestInput
+GET  /request/:requestId/input    controllers.input.InputController.lessonPage(requestId: Long)
+# POST /request/:requestId/input    controllers.input.InputController.lessonInput(requestId: Long)
 
 # --[ 特集ページ ]--------------------------------------------------------------
 GET  /recruit/intership-for-summer-21  controllers.recruit.InternshipForSummer21Controller.view

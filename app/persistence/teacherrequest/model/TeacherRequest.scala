@@ -5,7 +5,7 @@
  * please view the LICENSE file that was distributed with this source code.
  */
 
-package persistence.facility.model
+package persistence.teacherrequest.model
 
 import play.api.data._
 import play.api.data.Forms._
@@ -16,15 +16,15 @@ import persistence.request.model.Request
 
 // 施設情報 (sample)
 //~~~~~~~~~~~~~
-case class Lesson(
-  id:          Option[Lesson.Id],                // 施設ID
+case class TeacherRequest(
+  id:          Option[TeacherRequest.Id],          // 施設ID
   requestId:   Request.Id,
   locationId:  Location.Id,                        // 地域ID
   categoryId:  Category.Id,
-  name:        String,                             // 施設名
-  detail:      String,                             // 施設名
-  maxPeaple:   Int,
-  minPeaple:   Int,
+  name:        String,
+  detail:      String,
+  maxPeople:   Int,
+  minPeople:   Int,
   fee:         Int,
   createDate:  LocalDateTime = LocalDateTime.now,
   deadlineDate:LocalDateTime,
@@ -33,16 +33,11 @@ case class Lesson(
   createdAt:   LocalDateTime = LocalDateTime.now   // データ作成日
 )
 
-// 施設検索
-//case class FacilitySearch(
-//  locationIdOpt: Option[Location.Id]
-//)
-
-case class LessonFromInput (
-  name:        String,                             // 施設名
-  detail:      String,                             // 施設名
-  maxPeaple:   Int,
-  minPeaple:   Int,
+case class TeacherRequestInput(
+  name:        String,
+  detail:      String,
+  maxPeople:   Int,
+  minPeople:   Int,
   fee:         Int,
   createDate:  LocalDateTime = LocalDateTime.now,
   deadlineDate:LocalDateTime,
@@ -50,39 +45,38 @@ case class LessonFromInput (
   updatedAt:   LocalDateTime = LocalDateTime.now,  // データ更新日
   createdAt:   LocalDateTime = LocalDateTime.now   // データ作成日
 ) {
-  def toLesson(requestId: Request.Id, locationId: Location.Id, categoryId: Category.Id) =
-    Lesson(None, requestId, locationId, categoryId, name, detail, maxPeaple, minPeaple, fee, createDate, deadlineDate, scheduleDate)
+  def toTeacherRequest(requestId: Request.Id, locationId: Location.Id, categoryId: Category.Id) =
+    TeacherRequest(None, requestId, locationId, categoryId, name, detail, maxPeople, minPeople, fee, createDate, deadlineDate, scheduleDate)
 }
 
 // コンパニオンオブジェクト
 //~~~~~~~~~~~~~~~~~~~~~~~~~~
-object Lesson {
+object TeacherRequest {
 
   // --[ 管理ID ]---------------------------------------------------------------
   type Id = Long
 
-
   // --[ フォーム定義 ]---------------------------------------------------------
-  val formForLesson = Form(
+  val formForTeacherRequestInput = Form(
     mapping(
       "name" -> text,
       "detail" -> text,
-      "max_peaple" -> number,
-      "min_peaple" -> number,
+      "max_people" -> number,
+      "min_people" -> number,
       "fee" -> number,
       "deadline_date" -> localDateTime("yyyy-mm-ddTHH:MM"),
       "schedule_date" -> localDateTime("yyyy-mm-ddTHH:MM"),
     )(
-      (x1, x2, x3, x4, x5, x6, x7) => LessonFromInput(
+      (x1, x2, x3, x4, x5, x6, x7) => TeacherRequestInput(
         name         = x1,
         detail       = x2,
-        maxPeaple    = x3,
-        minPeaple    = x4,
+        maxPeople    = x3,
+        minPeople    = x4,
         fee          = x5,
         deadlineDate = x6,
         scheduleDate = x7
       )
-    )(LessonFromInput.unapply(_).map(t =>
+    )(TeacherRequestInput.unapply(_).map(t =>
       (t._1, t._2, t._3, t._4, t._5, t._7, t._8)
     ))
   )

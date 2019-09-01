@@ -10,17 +10,19 @@ package model.site.app
 import com.github.t3hnar.bcrypt._
 import model.component.util.ViewValuePageLayout
 import model.site.app.SiteViewValueNewUser.NewUserForm
+import persistence.category.model.Category
 import persistence.geo.model.Location
-import persistence.udb.model.{ User, UserPassword }
+import persistence.udb.model.{User, UserPassword}
 import play.api.data.Form
 import play.api.data.Forms._
 
 // 登録: 新規ユーザー
 //~~~~~~~~~~~~~~~~~~~~~
 case class SiteViewValueNewUser(
-  layout:   ViewValuePageLayout,
-  location: Seq[Location],
-  form:     Form[NewUserForm]
+  layout:     ViewValuePageLayout,
+  location:   Seq[Location],
+  categories: Seq[Category],
+  form:       Form[NewUserForm]
 )
 
 object SiteViewValueNewUser {

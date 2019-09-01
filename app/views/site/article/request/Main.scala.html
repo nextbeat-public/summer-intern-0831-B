@@ -1,0 +1,19 @@
+@*
+* This file is part of the Nextbeat services.
+*
+* For the full copyright and license information,
+* please view the LICENSE file that was distributed with this source code.
+*@
+@import model.site.article.SiteViewValueRequest
+@import play.api.data.Form
+
+@(vv: SiteViewValueRequest)(implicit messages: play.api.i18n.Messages)
+@views.html.common.layout.Default(vv.layout) {
+    @views.html.common.layout.ContentLayout(
+        id      = "site-user-request",
+        content = tplContent
+    )
+}
+
+@tplContent = {
+}

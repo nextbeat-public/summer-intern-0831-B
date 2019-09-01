@@ -41,12 +41,16 @@ CREATE TABLE "user_request" (
  "category_id"                    VARCHAR(8)   NOT     NULL,
  "location_id"                    VARCHAR(8)   NOT     NULL,
  "user_request_good"              INT,
- "id"                             INT          NOT     NULL
+ "updated_at"                     TIMESTAMP    NOT      NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ "created_at"                     TIMESTAMP    NOT      NULL DEFAULT CURRENT_TIMESTAMP,
 ) ENGINE=InnoDB;
 
 CREATE TABLE "request_good_relationship" (
- "id"                             INT          NOT     NULL,
- "user_request_id"                INT          NOT     NULL
+ "id"                             INT          NOT     NULL AUTO_INCREAMENT PRIMARY KEY,
+ "user_id"                        INT          NOT     NULL,
+ "user_request_id"                INT          NOT     NULL,
+ "updated_at"                     TIMESTAMP    NOT     NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ "created_at"                     TIMESTAMP    NOT     NULL DEFAULT CURRENT_TIMESTAMP,
 ) ENGINE=InnoDB;
 
 CREATE TABLE "teacher_request" (
@@ -61,12 +65,12 @@ CREATE TABLE "teacher_request" (
  "teacher_request_study_fee"      INT          NOT     NULL,
  "category_id"                    VARCHAR(8)   NOT     NULL,
  "location_id"                    VARCHAR(8)   NOT     NULL,
- "user_request_id"                INT          NOT     NULL,
- "id"                             INT          NOT     NULL
+ "user_request_id"                INT          NOT     NULL
 ) ENGINE=InnoDB;
 
 CREATE TABLE "participation_status_relationship" (
  "id"                             INT          NOT     NULL,
+ "user_id"                        INT          NOT     NULL,
  "teacher_request_id"             INT          NOT     NULL
 ) ENGINE=InnoDB;
 

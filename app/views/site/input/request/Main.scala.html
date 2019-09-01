@@ -5,7 +5,7 @@
  * please view the LICENSE file that was distributed with this source code.
  *@
 
-@import model.site.input.SiteViewValueInputRequest
+@import model.site.input.request.SiteViewValueInputRequest
 @import persistence.udb.model.User
 @import play.api.data.Form
 
@@ -13,7 +13,7 @@
 @(vv: SiteViewValueInputRequest)(implicit messages: play.api.i18n.Messages)
 @views.html.common.layout.Default(vv.layout) {
   @views.html.common.layout.ContentLayout(
-    id      = "site-app-new-user",
+    id      = "site-input-request",
     content = tplContent
   )
 }

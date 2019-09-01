@@ -14,13 +14,13 @@ import model.component.util.ViewValuePageLayout
 import persistence.geo.model.Location
 import persistence.geo.dao.LocationDAO
 import persistence.category.model.Category
-import persistence.category.dao.CategoryDAO
+import persistence.category.dao.CategoryDao
 
 // 登録: 新規ユーザー
 //~~~~~~~~~~~~~~~~~~~~~
 class NewUserController @javax.inject.Inject()(
   val daoLocation: LocationDAO,
-  val daoCategory: CategoryDAO,
+  val daoCategory: CategoryDao,
   cc: MessagesControllerComponents
 ) extends AbstractController(cc) with I18nSupport {
   implicit lazy val executionContext = defaultExecutionContext
@@ -34,10 +34,10 @@ class NewUserController @javax.inject.Inject()(
       catSeq <- daoCategory.findAll
     } yield {
       val vv = SiteViewValueNewUser(
-        layout   = ViewValuePageLayout(id = r.uri),
-        location = locSeq,
-        category = catSeq,
-        form     = SiteViewValueNewUser.formNewUser
+        layout     = ViewValuePageLayout(id = r.uri),
+        location   = locSeq,
+        categories = catSeq,
+        form       = SiteViewValueNewUser.formNewUser
       )
       Ok(views.html.site.app.new_user.Main(vv))
     }

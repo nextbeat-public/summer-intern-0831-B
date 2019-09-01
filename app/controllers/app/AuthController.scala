@@ -57,9 +57,9 @@ class AuthController @javax.inject.Inject()(
         } yield
           passwordOpt match {
             case Some(password) if form.password.isBcryptedSafe(password.hash).getOrElse(false) =>
-              Redirect(routes.TopController.show) //Redirect("/home/") 不明のため残す
+              Redirect(controllers.top.routes.TopController.show) //Redirect("/home/") 不明のため残す
                 .withSession(
-                  request.session + ("user_id" -> password.id.toString)
+                  r.session + ("user_id" -> password.id.toString)
                 )
             case _ =>
               val vv = SiteViewValueAuthLogin(
