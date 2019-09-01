@@ -12,9 +12,9 @@ import persistence.request.dao.RequestDAO
 import persistence.lesson.model.Lesson
 import persistence.lesson.dao.LessonDAO
 
-import model.site.search.SiteViewValueSearch
-import model.site.request.SiteViewValueRequest
-import model.site.lesson.SiteViewValueLesson
+import model.site.article.search.SiteViewValueSearch
+import model.site.article.request.SiteViewValueRequest
+import model.site.article.lesson.SiteViewValueLesson
 
 import model.component.util.ViewValuePageLayout
 import mvc.action.AuthenticationAction
