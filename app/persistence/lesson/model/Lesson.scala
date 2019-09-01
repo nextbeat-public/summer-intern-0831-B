@@ -5,7 +5,7 @@
  * please view the LICENSE file that was distributed with this source code.
  */
 
-package persistence.facility.model
+package persistence.lesson.model
 
 import play.api.data._
 import play.api.data.Forms._
