@@ -1,13 +1,14 @@
 package persistence.category.dao
 
 import java.time.LocalDateTime
-import scala.concurrent.Future
 
+import persistence.category.model.Category
+
+import scala.concurrent.Future
 import slick.jdbc.JdbcProfile
 import play.api.db.slick.DatabaseConfigProvider
 import play.api.db.slick.HasDatabaseConfigProvider
 
-import persistence.category.model.Location
 
 class LocationDAO @javax.inject.Inject()(
   val dbConfigProvider: DatabaseConfigProvider
@@ -15,7 +16,7 @@ class LocationDAO @javax.inject.Inject()(
   import profile.api._
 
   // --[ リソース定義 ] --------------------------------------------------------
-  lazy val slick = TableQuery[LocationTable]
+  lazy val slick = TableQuery[CategoryTable]
 
   // --[ データ処理定義 ] ------------------------------------------------------
   /**
@@ -42,8 +43,8 @@ class LocationDAO @javax.inject.Inject()(
   class CategoryTable(tag: Tag) extends Table[Category](tag, "category") {
 
     // Table's columns
-    /* @1 */ def id        = column[Location.Id]     ("id", O.PrimaryKey)
-    /* @2 */ def level     = column[String]          ("name")
+    /* @1 */ def id        = column[Category.Id]     ("id", O.PrimaryKey)
+    /* @2 */ def name      = column[String]          ("name")
     /* @3 */ def updatedAt = column[LocalDateTime]   ("updated_at")
     /* @4 */ def createdAt = column[LocalDateTime]   ("created_at")
 
