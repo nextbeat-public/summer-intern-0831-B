@@ -28,19 +28,19 @@ class AuthController @javax.inject.Inject()(
   /**
    * ページの表示
    */
-  def login = Action { implicit request =>
+  def login = Action { implicit r =>
     val vv = SiteViewValueAuthLogin(
-      layout = ViewValuePageLayout(id = request.uri),
+      layout = ViewValuePageLayout(id = r.uri),
       form   = SiteViewValueAuthLogin.formLogin
     )
     Ok(views.html.site.app.auth.Login(vv))
   }
 
-  def loginCommit = Action.async { implicit request =>
+  def loginCommit = Action.async { implicit r =>
     SiteViewValueAuthLogin.formLogin.bindFromRequest.fold(
       errors => {
         val vv = SiteViewValueAuthLogin(
-          layout = ViewValuePageLayout(id = request.uri),
+          layout = ViewValuePageLayout(id = r.uri),
           form   = errors
         )
         Future.successful(
@@ -57,13 +57,13 @@ class AuthController @javax.inject.Inject()(
         } yield
           passwordOpt match {
             case Some(password) if form.password.isBcryptedSafe(password.hash).getOrElse(false) =>
-              Redirect("/home/")
+              Redirect(routes.TopController.show) //Redirect("/home/") 不明のため残す
                 .withSession(
                   request.session + ("user_id" -> password.id.toString)
                 )
             case _ =>
               val vv = SiteViewValueAuthLogin(
-                layout = ViewValuePageLayout(id = request.uri),
+                layout = ViewValuePageLayout(id = r.uri),
                 form   = SiteViewValueAuthLogin.formLogin
               )
               BadRequest(views.html.site.app.auth.Login(vv))

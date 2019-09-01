@@ -11,8 +11,10 @@ import javax.inject.Inject
 import play.api.i18n.I18nSupport
 import play.api.mvc.{ AbstractController, MessagesControllerComponents }
 import persistence.geo.dao.LocationDAO
-import persistence.udb.dao.{ UserDAO, UserPasswordDAO }
 import persistence.geo.model.Location
+import persistence.category.dao.CategoryDAO
+import persistence.category.model.Category
+import persistence.udb.dao.{ UserDAO, UserPasswordDAO }
 import model.site.app.SiteViewValueNewUser
 import model.component.util.ViewValuePageLayout
 
@@ -20,6 +22,7 @@ import model.component.util.ViewValuePageLayout
 //~~~~~~~~~~~~~~~~~~~~~
 class NewUserCommitController @Inject()(
   val daoLocation: LocationDAO,
+  val daoCategory: CategoryDAO,
   val daoUser: UserDAO,
   val daoUserPassword: UserPasswordDAO,
   cc: MessagesControllerComponents
@@ -29,15 +32,17 @@ class NewUserCommitController @Inject()(
   /**
    * 新規ユーザの登録
    */
-  def application = Action.async { implicit request =>
+  def application = Action.async { implicit r =>
     SiteViewValueNewUser.formNewUser.bindFromRequest.fold(
       errors => {
         for {
           locSeq <- daoLocation.filterByIds(Location.Region.IS_PREF_ALL)
+          catSeq <- daoCategory.findAll
         } yield {
           val vv = SiteViewValueNewUser(
-            layout   = ViewValuePageLayout(id = request.uri),
+            layout   = ViewValuePageLayout(id = r.uri),
             location = locSeq,
+            category = catSeq,
             form     = errors
           )
           BadRequest(views.html.site.app.new_user.Main(vv))
@@ -48,7 +53,7 @@ class NewUserCommitController @Inject()(
           id <- daoUser.add(form.toUser)
           _  <- daoUserPassword.add(form.toUserPassword(id))
         } yield {
-          Redirect("/recruit/intership-for-summer-21")
+          Redirect(routes.TopController.show)
             .withSession(
               request.session + ("user_id" -> id.toString)
             )
