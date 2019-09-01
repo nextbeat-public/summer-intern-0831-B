@@ -14,6 +14,14 @@ POST  /login                            controllers.app.AuthController.loginComm
 GET  /facility/list                    controllers.facility.FacilityController.list
 GET  /facility/search                  controllers.facility.FacilityController.search
 
+# --[ 検索ページ ]----------------------------------------------------------------
+GET  /search                         controllers.search.SearchController.search 
+
+# --[ ユーザ提案ページ ]----------------------------------------------------------------
+GET  /request/:id                    controllers.facility.RequestController.show(id: Int)
+
+# --[ ページ ]----------------------------------------------------------------
+
 # --[ 特集ページ ]--------------------------------------------------------------
 GET  /recruit/intership-for-summer-21  controllers.recruit.InternshipForSummer21Controller.view
 
