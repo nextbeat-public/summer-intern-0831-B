@@ -8,7 +8,7 @@ import play.api.db.slick.DatabaseConfigProvider
 import play.api.db.slick.HasDatabaseConfigProvider
 import persistence.request.model._
 import persistence.geo.model.Location
-import persistence.category.model.Location
+import persistence.category.model.Category
 
 //---- DAO ----//
 class RequestDAO @javax.inject.Inject()(
