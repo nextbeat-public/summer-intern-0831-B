@@ -88,7 +88,7 @@ class TeacherRequestDao @javax.inject.Inject()(
     /* @ */ def fee          = column[Int]                 ("teacher_request_study_fee")
     /* @ */ def createDate   = column[LocalDateTime]       ("teacher_request_date")
     /* @ */ def deadlineDate = column[LocalDateTime]       ("teacher_request_deadline")
-    /* @ */ def scheduleDate = column[LocalDateTime]       ("teacher_request_schedule_date")
+    /* @ */ def scheduleDate = column[LocalDateTime]       ("teacher_request_scheduled_date")
     /* @ */ def updatedAt    = column[LocalDateTime]       ("updated_at")
     /* @ */ def createdAt    = column[LocalDateTime]       ("created_at")
 

@@ -40,7 +40,7 @@ class CategoryDao @javax.inject.Inject()(
     }
 
   // --[ テーブル定義 ] --------------------------------------------------------
-  class CategoryTable(tag: Tag) extends Table[Category](tag, "category") {
+  class CategoryTable(tag: Tag) extends Table[Category](tag, "category_list") {
 
     // Table's columns
     /* @1 */ def id        = column[Category.Id]     ("id", O.PrimaryKey)
