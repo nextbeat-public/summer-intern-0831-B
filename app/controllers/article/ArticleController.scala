@@ -5,6 +5,16 @@ import play.api.mvc.{AbstractController, MessagesControllerComponents}
 
 import persistence.geo.model.Location
 import persistence.geo.dao.LocationDAO
+import persistence.category.model.category
+import persistence.category.dao.CategoryDAO
+import persistence.request.model.Request
+import persistence.request.dao.RequestDAO
+import persistence.lesson.model.Lesson
+import persistence.lesson.dao.LessonDAO
+
+import model.site.search.SiteViewValueSearch
+import model.site.request.SiteViewValueRequest
+import model.site.lesson.SiteViewValueLesson
 
 import model.component.util.ViewValuePageLayout
 import mvc.action.AuthenticationAction
@@ -24,13 +34,12 @@ class ArticleController @javax.inject.Inject()(
     def search(locationId: Option[String], categoryId: Option[String]) = (Action andThen AuthenticationAction()).async {
       for {
         locSeq     <- daoLocation.filterByIds(Location.Region.IS_PREF_ALL)
-        catSeq     <- adoCategory.filterByIds(Category.Region.IS_PREF_ALL)
+        catSeq     <- daoCategory.findAll
         requestSeq <- (locationId, categoryId) match {
           case (Some(locId), Some(catId)) => {
             for {
               locations  <- daoLocation.filterByPrefId(locId)
-              categories <- daoCategory.filterByPrefId(catId)
-              requestSeq <- requestDao.filterByLocationAndCategoryIds(locations.map(_.id), categories.map(_.id))
+              requestSeq <- requestDao.filterByLocationAndCategoryIds(locations.map(_.id), catId)
             } yield requestSeq 
           }
           case (Some(locId), None)        => {
@@ -39,20 +48,14 @@ class ArticleController @javax.inject.Inject()(
               requestSeq <- requestDao.filterByLocationIds(locations.map(_.id))
             } yield requestSeq
           }
-          case (None, Some(catId))        => {
-            for {
-              categories <- daoCategory.filterByPrefId(catId)
-              requestSeq <- requestDao.filterByCategoryIds(categories.map(_.id))
-            } yield requestSeq
-          }
+          case (None, Some(catId))        => requestDao.filterByCategoryIds(catId)
           case (None, None)               => requestDao.findAll
         }
         lessonSeq  <- (locationId, category) match {
           case (Some(locId), Some(catId)) => {
             for {
               locations  <- daoLocation.filterByPrefId(locId)
-              categories <- daoCategory.filterByPrefId(catId)
-              lessonSeq  <- lessonDao.filterByLocationAndCategoryIds(locations.map(_.id), categories.map(_.id))
+              lessonSeq  <- lessonDao.filterByLocationAndCategoryIds(locations.map(_.id), catId)
             } yield lessonSeq 
           }
           case (Some(locId), None)        => {
@@ -61,16 +64,11 @@ class ArticleController @javax.inject.Inject()(
               lessonSeq <- lessonDao.filterByLocationIds(locations.map(_.id))
             } yield lessonSeq
           }
-          case (None, Some(catId))        => {
-            for {
-              categories <- daoCategory.filterByPrefId(catId)
-              lessonSeq  <- lessonDao.filterByCategoryIds(categories.map(_.id))
-            } yield lessonSeq
-          }
+          case (None, Some(catId))        => lessonDao.filterByCategoryIds(catId)
           case (None, None)               => lessonDao.findAll
         }
       } yield {
-        val vv = SiteViewValueArticleList(
+        val vv = SiteViewValueSearch(
           location = locSeq,
           category = catSeq,
           requests = requestSeq,
@@ -86,7 +84,7 @@ class ArticleController @javax.inject.Inject()(
     def showRequest(requestId: Int) = Action.async {
       for {
         locSeq  <- daoLocation.filterByIds(Location.Region.IS_PREF_ALL)
-        catSeq  <- adoCategory.filterByIds(Category.Region.IS_PREF_ALL)
+        catSeq  <- daoCategory.findAll
         request <- requestDao.get(requestId)
       } yield {
         val vv = SiteViewValueRequest(
@@ -104,7 +102,7 @@ class ArticleController @javax.inject.Inject()(
     def showLesson(lessonId: Int) = Action.async {
       for {
         locSeq <- daoLocation.filterByIds(Location.Region.IS_PREF_ALL)
-        catSeq <- adoCategory.filterByIds(Category.Region.IS_PREF_ALL)
+        catSeq <- daoCategory.findAll
         lesson <- lessonDao.get(lessonId)
       } yield {
         val vv = SiteViewValueLesson(
