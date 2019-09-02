@@ -27,6 +27,8 @@ POST /request/:requestId/input    controllers.input.InputController.lessonInput(
 GET  /search                      controllers.article.ArticleController.search(locationId: Option[String], categoryId: Option[String])
 GET  /request/:requestId          controllers.article.ArticleController.showRequest(requestId: Long)
 GET  /lesson/:lessonId            controllers.article.ArticleController.showLesson(lessonId: Long)
+# requestにいいね
+POST /request/:requestId/good     controllers.article.ArticleController.insertRequestGood(requestId: Long)
 # lessonに参加
 POST /lesson/:lessonId/join       controllers.article.ArticleController.insertLessonJoin(lessonId: Long)
 

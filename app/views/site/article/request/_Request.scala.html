@@ -9,7 +9,7 @@
 @import play.api.data.Form
 
 @import persistence.request.model.Request
-@(vv: SiteViewValueRequest)(implicit messages: play.api.i18n.Messages)
+@(vv: SiteViewValueRequest, numGood: Int, already: Int)(implicit messages: play.api.i18n.Messages)
 
 @** ユーザ提案表示ページ *@
 @views.html.common.layout.InnerContent("site-app-new-user-form", "content") {
@@ -74,6 +74,19 @@
                     </div>
                 </a>
             </article>
+
+            <div class="content__section form">
+            @** いいね *@
+                @if( already == 0 ){
+                    @helper.form(action = controllers.article.routes.ArticleController.insertRequestGood(vv.request.id.get)) {
+                        <input type="submit" value="参加">
+                    }
+                } else {
+                    <p class="inline">
+                    いいね済
+                    </p>
+                }
+            </div>>
 
     </div>
 }
