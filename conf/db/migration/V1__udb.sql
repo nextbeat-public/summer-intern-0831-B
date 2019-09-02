@@ -88,7 +88,7 @@ INSERT INTO "teacher_request" (
   "location_id",
   "user_request_id",
 ) VALUES
- ('提案します！', 'こんな内容でどうでしょう?', '2020-08-30', '2020-07-30', 20, 10, '2020-08-30', 10000, 1, '13000', 1);
+ ('提案します！', 'こんな内容でどうでしょう?', '2020-08-30', '2020-07-30', 20, 10, '2020-08-30', 10000, '06000', '13000', 1);
 
 CREATE TABLE "participation_status_relationship" (
  "id"                             INT          NOT     NULL AUTO_INCREMENT PRIMARY KEY,

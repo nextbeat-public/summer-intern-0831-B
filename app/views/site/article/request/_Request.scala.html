@@ -47,7 +47,7 @@
                                     <tr class="category">
                                         <th class="inline">カテゴリ:</th>
                                         <td class="inline">
-
+                                            @vv.categories.find(x => x.id == vv.request.categoryId ).map(_.name)
                                         </td>
                                     </tr>
                                     <tr class="location">
