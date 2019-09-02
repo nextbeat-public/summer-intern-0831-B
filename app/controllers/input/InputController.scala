@@ -10,6 +10,7 @@ import model.component.util.ViewValuePageLayout
 import model.site.input.request.SiteViewValueInputRequest
 import model.site.input.lesson.SiteViewValueInputLesson
 import model.site.input.request.SiteViewValueInputRequest.formForRequest
+import persistence.teacherrequest.model.TeacherRequest.formForTeacherRequestInput
 import mvc.action.AuthenticationAction
 import persistence.category.dao.CategoryDao
 import persistence.teacherrequest.dao.TeacherRequestDao
@@ -52,7 +53,13 @@ class InputController @javax.inject.Inject()(
           locSeq <- daoLocation.filterByIds(Location.Region.IS_PREF_ALL)
           catSeq <- daoCategory.findAll
         } yield {
-          Redirect("/")
+          val vv = SiteViewValueInputRequest(
+            layout     = ViewValuePageLayout(id = r.uri),
+            locations  = locSeq,
+            categories = catSeq,
+            form       = errors,
+          )
+          BadRequest(views.html.site.input.request.Main(vv))
         }
       },
       requestForm => {
@@ -79,6 +86,7 @@ class InputController @javax.inject.Inject()(
         locations  = locSeq,
         categories = catSeq,
         request    = request,
+        form       = formForTeacherRequestInput
       )
       Ok(views.html.site.input.lesson.Main(vv))
     }
@@ -87,25 +95,34 @@ class InputController @javax.inject.Inject()(
   /**
   * 講師提案の追加
   */
-//  def lessonInput(requestId: Int) = Action.async { implicit r =>
-//    formForLesson.bindFromRequest.fold(
-//      errors => {
-//        for {
-//          locSeq <- daoLocation.filterByIds(Location.Region.IS_PREF_ALL)
-//          catSeq <- daoCategory.findAll
-//        } yield {
-//          Redirect(routes.TopController.show)
-//        }
-//      },
-//      lessonFromInput => {
-//        for {
-//          requestLocationId <- requestDao.getLocationIdById(requestId)
-//          requestCategoryId <- requestDao.getCategoryIdById(requestId)
-//          lesson <- lessonFromInput.toLesson(requestId, requestCategoryId, requestLocationId)
-//        } yield lessonDao.insert(lesson)
-//      }
-//    )
-//    Redirect(routes.TopController.show)
-//  }
+  def lessonInput(requestId: Long) = Action.async { implicit r =>
+    formForTeacherRequestInput.bindFromRequest.fold(
+      errors => {
+        for {
+          locSeq <- daoLocation.filterByIds(Location.Region.IS_PREF_ALL)
+          catSeq <- daoCategory.findAll
+          Some(request) <- requestDao.get(requestId)
+        } yield {
+          val vv = SiteViewValueInputLesson(
+            layout     = ViewValuePageLayout(id = r.uri),
+            locations  = locSeq,
+            categories = catSeq,
+            request    = request,
+            form       = errors
+          )
+        println(errors)
+          BadRequest(views.html.site.input.lesson.Main(vv))
+        }
+      },
+      lessonFromInput => {
+        for {
+          Some(request) <- requestDao.get(requestId)
+          _ <- teacherRequestDao.insert(lessonFromInput.toTeacherRequest(requestId, request.categoryId, request.locationId))
+        } yield {
+          Redirect("/")
+        }
+      }
+    )
+  }
 
 }
