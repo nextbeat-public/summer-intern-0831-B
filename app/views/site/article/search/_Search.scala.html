@@ -49,60 +49,58 @@
     }
     </div>
 
-    <div class="content__section content">
-        @for(request <- vv.requests) {
-          <article class="facility-list-item">
-            <a href="@controllers.article.routes.ArticleController.showRequest(request.id.get)">
-              <div class="item-panel__wrapper">
-                <header class="facility-item__header">
-                  <div class="name">
-                    @request.name
-                  </div>
-                </header>
-                <section class="facility-item__content">
-                  <div>
-                    <div class="item-panel__content">
-                      <div class="description">
-                        <label class="inline">備考:</label>
-                        <p class="inline">
-                          @request.date
-                        </p>
-                      </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                @for(request <- vv.requests) {
+                    <a href="@controllers.article.routes.ArticleController.showRequest(request.id.get)" class="link">
+                    <div class="item-panel__wrapper">
+                        <header class="facility-item__header">
+                            <div class="name">
+                            @request.name
+                            </div>
+                        </header>
+                        <section class="facility-item__content">
+                            <div>
+                                <div class="item-panel__content">
+                                    <div class="description">
+                                        <label class="inline">備考:</label>
+                                        <p class="inline">
+                                        @request.date
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
                     </div>
-                  </div>
-                </section>
-              </div>
-            </a>
-          </article>
-        }
-      </div>
-
-      <div class="content__section content">
-        @for(lesson <- vv.lessons) {
-          <article class="facility-list-item">
-            <a href="@controllers.article.routes.ArticleController.showLesson(lesson.id.get)">
-              <div class="item-panel__wrapper">
-                <header class="facility-item__header">
-                  <div class="name">
-                    @lesson.name
-                  </div>
-                </header>
-                <section class="facility-item__content">
-                  <div>
-                    <div class="item-panel__content">
-                      <div class="description">
-                        <label class="inline">備考:</label>
-                        <p class="inline">
-                          @lesson.updatedAt
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </section>
-              </div>
-            </a>
-          </article>
-        }
-      </div>
-      
+                    </a>
+                }
+            </div>
+            <div class="col">
+                @for(lesson <- vv.lessons) {
+                    <a href="@controllers.article.routes.ArticleController.showLesson(lesson.id.get)" class="link">
+                        <div class="item-panel__wrapper">
+                            <header class="facility-item__header">
+                                <div class="name">
+                                @lesson.name
+                                </div>
+                            </header>
+                            <section class="facility-item__content">
+                                <div>
+                                    <div class="item-panel__content">
+                                        <div class="description">
+                                            <label class="inline">備考:</label>
+                                            <p class="inline">
+                                            @lesson.updatedAt
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
 }

@@ -24,7 +24,7 @@ GET  /request/:requestId/input    controllers.input.InputController.lessonPage(r
 POST /request/:requestId/input    controllers.input.InputController.lessonInput(requestId: Long)
 
 # --[ 記事ページ ]----------------------------------------------------------------
-GET  /search                      controllers.article.ArticleController.search(locationId: Option[String], categoryId: Option[String])
+GET  /search                      controllers.article.ArticleController.search
 GET  /request/:requestId          controllers.article.ArticleController.showRequest(requestId: Long)
 GET  /lesson/:lessonId            controllers.article.ArticleController.showLesson(lessonId: Long)
 # requestにいいね
