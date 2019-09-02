@@ -40,10 +40,10 @@ object SiteViewValueInputRequest {
 
   val formForRequest = Form(
     mapping(
-      "name" -> text,
-      "detail" -> text,
-      "locationId" -> text,
-      "categoryId" -> text,
+      "name" -> nonEmptyText,
+      "detail" -> nonEmptyText,
+      "locationId" -> nonEmptyText,
+      "categoryId" -> nonEmptyText,
     )(RequestForm.apply)(RequestForm.unapply)
   )
 }
