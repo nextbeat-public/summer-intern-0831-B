@@ -11,14 +11,14 @@
 
 @(vv: SiteViewValueSearch, form: Form[FormValueForSiteSearch])(implicit messages: play.api.i18n.Messages)
 
-
 @** 施設検索一覧 *@
-@views.html.common.layout.InnerContent("site-app-new-user-form", "content") {
+@views.html.common.layout.InnerContent("site-search-list-form", "content") {
     @** --[ 見出し ]---------------------------------------------------------- *@
     <h3 class="content__section header">
         <span class="header__title">提案・講義提案一覧</span>
     </h3>
 
+    <div class="content__section form">
     @helper.form(action = controllers.article.routes.ArticleController.search) {
         @** 都道府県 *@
         <div class="form__section pref inline">
@@ -34,10 +34,18 @@
         @helper.select(
             field = form("categoryId"),
             options = vv.categories.map(v => (v.id, v.name)),
-            '_label -> "都道府県",
+            '_label -> "カテゴリ",
             '_default -> "未選択",
             '_showConstraints -> false
         )
         </div>
+
+        @** 検索ボタン *@
+        <div class="form__section submit inline">
+            <button class="button" type="submit">
+                <span class="submit__text">検索</span>
+            </button>
+        </div>
     }
+    </div>
 }

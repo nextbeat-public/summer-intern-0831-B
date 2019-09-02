@@ -9,6 +9,7 @@ import persistence.request.dao.RequestDAO
 import persistence.teacherrequest.dao.TeacherRequestDao
 import model.site.article.{SiteViewValueLesson, SiteViewValueRequest, SiteViewValueSearch}
 import model.component.util.ViewValuePageLayout
+import model.site.article.FormValueForSiteSearch.formForSearch
 import mvc.action.AuthenticationAction
 
 class ArticleController @javax.inject.Inject()(
@@ -23,7 +24,10 @@ class ArticleController @javax.inject.Inject()(
     /**
     * 検索
     */
-    def search(locationId: Option[String], categoryId: Option[String]) = (Action).async { implicit r =>
+    def search = (Action).async { implicit r =>
+      val locationId = r.headers.get("locationId")
+      val categoryId = r.headers.get("categoryId")
+
       for {
         locSeq     <- daoLocation.filterByIds(Location.Region.IS_PREF_ALL)
         catSeq     <- daoCategory.findAll
@@ -67,7 +71,7 @@ class ArticleController @javax.inject.Inject()(
           requests   = requestSeq,
           lessons    = lessonSeq,
         )
-        Ok(views.html.site.article.search.Main(vv))
+        Ok(views.html.site.article.search.Main(vv, formForSearch))
       }
     }
 

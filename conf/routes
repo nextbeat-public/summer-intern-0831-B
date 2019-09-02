@@ -18,7 +18,7 @@ GET  /facility/search                  controllers.facility.FacilityController.s
 GET  /                            controllers.top.TopController.show
 
 # --[ 記事ページ ]----------------------------------------------------------------
-GET  /search                      controllers.article.ArticleController.search(locationId: Option[String], categoryId: Option[String])
+GET  /search                      controllers.article.ArticleController.search
 GET  /request/:requestId          controllers.article.ArticleController.showRequest(requestId: Long)
 GET  /lesson/:lessonId            controllers.article.ArticleController.showLesson(lessonId: Long)
 
