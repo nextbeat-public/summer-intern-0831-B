@@ -8,7 +8,7 @@ import play.api.db.slick.DatabaseConfigProvider
 import play.api.db.slick.HasDatabaseConfigProvider
 import persistence.udb.model.User
 import persistence.request.model.Request
-import persistence.lessonjoin.model.RequestGood
+import persistence.requestgood.model.RequestGood
 
 //---- DAO ----//
 class RequestGoodDAO @javax.inject.Inject()(
@@ -72,11 +72,11 @@ class RequestGoodDAO @javax.inject.Inject()(
   class RequestGoodTable(tag: Tag) extends Table[RequestGood](tag, "request_good_relationship") {
     
     // Table's columns
-    /* @1 */ def id        = column[LessonJoin.Id]     ("id", O.PrimaryKey, O.AutoInc)
-    /* @2 */ def userId    = column[User.Id]           ("user_id")
-    /* @3 */ def requestId = column[TeacherRequest.Id] ("user_request_id")
-    /* @4 */ def updatedAt = column[LocalDateTime]     ("updated_at")
-    /* @5 */ def createdAt = column[LocalDateTime]     ("created_at")
+    /* @1 */ def id        = column[RequestGood.Id] ("id", O.PrimaryKey, O.AutoInc)
+    /* @2 */ def userId    = column[User.Id]        ("user_id")
+    /* @3 */ def requestId = column[Request.Id]     ("user_request_id")
+    /* @4 */ def updatedAt = column[LocalDateTime]  ("updated_at")
+    /* @5 */ def createdAt = column[LocalDateTime]  ("created_at")
 
     // The * projection of the table
     def * = (

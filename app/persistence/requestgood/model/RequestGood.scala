@@ -5,7 +5,7 @@ import persistence.request.model.Request
 import persistence.udb.model.User
 
 case class RequestGood(
-  id:        Option[LessonJoin.Id],         // 関係ID
+  id:        Option[RequestGood.Id],         // 関係ID
   userId:    User.Id,
   requestId:  Request.Id,
   updatedAt: LocalDateTime = LocalDateTime.now,

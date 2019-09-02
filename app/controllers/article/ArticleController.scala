@@ -98,7 +98,7 @@ class ArticleController @javax.inject.Inject()(
       }
     }
     // いいね
-    insertRequestGood(requestId: Long) = (Action andThen AuthenticationAction()) { implicit r =>
+    def insertRequestGood(requestId: Long) = (Action andThen AuthenticationAction()) { implicit r =>
       val insertData = RequestGood(None, r.userId, requestId)
       requestGoodDao.insert(insertData)
       Redirect(routes.ArticleController.showRequest(requestId))
