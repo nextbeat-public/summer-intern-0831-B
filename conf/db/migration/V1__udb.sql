@@ -48,7 +48,7 @@ CREATE TABLE "user_request" (
 INSERT INTO "user_request"
  ("user_request_name", "user_request_detail", "user_request_date", "category_id", "location_id", "user_request_good")
 VALUES
- ('逆提案サンプル', 'こんな勉強会やりたい', '2019-12-31', 1, '13000', 0);
+ ('逆提案サンプル', 'こんな勉強会やりたい', '2019-12-31', '01000', '13000', 0);
 
 CREATE TABLE "request_good_relationship" (
  "id"                             INT          NOT     NULL AUTO_INCREMENT PRIMARY KEY,
@@ -88,7 +88,7 @@ INSERT INTO "teacher_request" (
   "location_id",
   "user_request_id",
 ) VALUES
- ('提案します！', 'こんな内容でどうでしょう?', '2020-08-30', '2020-07-30', 20, 10, '2020-08-30', 10000, 1, '13000', 1);
+ ('提案します！', 'こんな内容でどうでしょう?', '2020-08-30', '2020-07-30', 20, 10, '2020-08-30', 10000, '06000', '13000', 1);
 
 CREATE TABLE "participation_status_relationship" (
  "id"                             INT          NOT     NULL AUTO_INCREMENT PRIMARY KEY,
