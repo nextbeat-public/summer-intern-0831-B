@@ -88,6 +88,12 @@
                 }
             </div>
 
+            <div class="content__section form">
+				@helper.form(action = controllers.input.routes.InputController.lessonPage(vv.request.id.get)) {
+					<input type="submit" value="提案する">
+				}
+            </div>
+
             <div class="container">
                 @for(lesson <- vv.lessons) {
                     <a href="@controllers.article.routes.ArticleController.showLesson(lesson.id.get)" class="link">
