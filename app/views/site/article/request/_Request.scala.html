@@ -59,7 +59,7 @@
                                     <tr class="good-number">
                                         <th class="inline">いいね:</th>
                                         <td class="inline">
-                                            @vv.request.numGood
+                                            @numGood
                                         </td>
                                     </tr>
                                     <tr class="good-number">
@@ -79,7 +79,7 @@
             @** いいね *@
                 @if( already == 0 ){
                     @helper.form(action = controllers.article.routes.ArticleController.insertRequestGood(vv.request.id.get)) {
-                        <input type="submit" value="参加">
+                        <input type="submit" value="いいね">
                     }
                 } else {
                     <p class="inline">
