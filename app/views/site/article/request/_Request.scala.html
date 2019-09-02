@@ -28,7 +28,7 @@
                             <div>
                                 <table class="item-panel__content">
                                     <tr>
-                                        <td class="inline, name" colspan="3">
+                                        <td class="inline, title-name" colspan="3">
                                             @vv.request.name
                                         </td>
                                     </tr>
@@ -75,23 +75,19 @@
                 </a>
             </article>
 
-            <div class="content__section form">
+            <div class="bottom">
             @** いいね *@
                 @if( already == 0 ){
                     @helper.form(action = controllers.article.routes.ArticleController.insertRequestGood(vv.request.id.get)) {
-                        <input type="submit" value="いいね">
+                        <input class="bottom-input" type="submit" value="いいね">
                     }
                 } else {
-                    <p class="inline">
-                    いいね済
-                    </p>
+                    <input class="inline bottom-input" value="いいね済"></input>
                 }
-            </div>
 
-            <div class="content__section form">
-				@helper.form(action = controllers.input.routes.InputController.lessonPage(vv.request.id.get)) {
-					<input type="submit" value="提案する">
-				}
+                @helper.form(action = controllers.input.routes.InputController.lessonPage(vv.request.id.get)) {
+                    <input class="bottom-input" type="submit" value="提案する">
+                }
             </div>
 
             <div class="container">
