@@ -891,8 +891,7 @@ h1, h2, h3, h4, h5, h6 {
 #site-user-request table {
   width: 100%;
   border-collapse: collapse;
-  border: 5px solid #52c2d0;
-  /* 左線 */ }
+  border: 5px solid #52c2d0; }
 
 #site-user-request table tr {
   border-bottom: solid 2px white; }
@@ -932,7 +931,7 @@ h1, h2, h3, h4, h5, h6 {
   padding-top: 20px;
   padding-bottom: 20px; }
 
-#site-user-request .name {
+#site-user-request .title-name {
   border-radius: 5px;
   color: #fff;
   /* 文字色 */
@@ -943,7 +942,7 @@ h1, h2, h3, h4, h5, h6 {
   /* 文字の縁取り */
   font-size: 50px; }
 
-#site-user-request .name:before {
+#site-user-request .title-name:before {
   background: repeating-linear-gradient(45deg, #f5d5da, #f5d5da 4px, #fcf0f1 0, #fcf0f1 7px);
   /* 斜めボーダー */
   border-radius: 0 5px 5px 0;
@@ -954,6 +953,49 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   right: 0;
   z-index: -1; }
+
+#site-user-request .bottom {
+  style: "display:inline-flex";
+  text-align: center; }
+
+#site-user-request .bottom-input {
+  text-align: center;
+  -webkit-appearance: none;
+  background-image: linear-gradient(45deg, #52c2d0 0%, #52c2d0 100%);
+  border: none;
+  border-radius: 0;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1em;
+  margin: 0 0 1em;
+  padding: 0.6em 2em;
+  text-decoration: none; }
+  #site-user-request .bottom-input :hover,
+  #site-user-request .bottom-input :focus {
+    outline: none; }
+
+#site-user-request .bottom-input::-moz-foucus-inner {
+  border: none;
+  padding: 0; }
+
+#site-user-request .container {
+  display: inline-block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 25px;
+  color: #ffffff;
+  background-image: linear-gradient(#6795fd 0%, #67ceff 100%);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
+  border-bottom: solid 3px #5e7fca;
+  margin-bottom: 20px; }
+
+#site-user-request .container:active {
+  -webkit-transform: translateY(4px);
+  transform: translateY(4px);
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
+  border-bottom: none; }
 
 #site-user-request .content__section .inline {
   display: inline-block; }
