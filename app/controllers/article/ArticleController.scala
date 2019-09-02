@@ -23,7 +23,7 @@ class ArticleController @javax.inject.Inject()(
     /**
     * 検索
     */
-    def search(locationId: Option[String], categoryId: Option[String]) = (Action andThen AuthenticationAction()).async { implicit r =>
+    def search(locationId: Option[String], categoryId: Option[String]) = (Action).async { implicit r =>
       for {
         locSeq     <- daoLocation.filterByIds(Location.Region.IS_PREF_ALL)
         catSeq     <- daoCategory.findAll

@@ -1,0 +1,43 @@
+@*
+* This file is part of the Nextbeat services.
+*
+* For the full copyright and license information,
+* please view the LICENSE file that was distributed with this source code.
+*@
+@import views.html.helper
+@import model.site.article.SiteViewValueSearch
+@import model.site.article.FormValueForSiteSearch
+@import play.api.data.Form
+
+@(vv: SiteViewValueSearch, form: Form[FormValueForSiteSearch])(implicit messages: play.api.i18n.Messages)
+
+
+@** 施設検索一覧 *@
+@views.html.common.layout.InnerContent("site-app-new-user-form", "content") {
+    @** --[ 見出し ]---------------------------------------------------------- *@
+    <h3 class="content__section header">
+        <span class="header__title">提案・講義提案一覧</span>
+    </h3>
+
+    @helper.form(action = controllers.article.routes.ArticleController.search) {
+        @** 都道府県 *@
+        <div class="form__section pref inline">
+        @helper.select(
+            field = form("locationId"),
+            options = vv.locations.map(v => (v.id, v.namePref)),
+            '_label -> "都道府県",
+            '_default -> "未選択",
+            '_showConstraints -> false
+        )
+        </div>
+        <div class="form__section pref inline">
+        @helper.select(
+            field = form("categoryId"),
+            options = vv.categories.map(v => (v.id, v.name)),
+            '_label -> "都道府県",
+            '_default -> "未選択",
+            '_showConstraints -> false
+        )
+        </div>
+    }
+}
