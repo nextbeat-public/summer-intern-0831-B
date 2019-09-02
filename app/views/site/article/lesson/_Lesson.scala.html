@@ -4,7 +4,7 @@
 @import play.api.data.Form
 
 @import persistence.teacherrequest.model.TeacherRequest
-@(vv: SiteViewValueLesson)(implicit messages: play.api.i18n.Messages)
+@(vv: SiteViewValueLesson, numJoin)(implicit messages: play.api.i18n.Messages)
 
 
 <h3 class="content__section header">
@@ -23,6 +23,10 @@
           <label class="inline">開催のために必要な受講者数:</label>
           <p class="inline">
             @vv.lesson.minPeople
+          </p>
+          <label class="inline">現在参加者数:</label>
+          <p class="inline">
+            @numJoin
           </p>
         </div>
         <div class="money">

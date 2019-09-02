@@ -15,6 +15,7 @@ import mvc.action.AuthenticationAction
 class ArticleController @javax.inject.Inject()(
   val requestDao: RequestDAO,
   val teacherRequestDao: TeacherRequestDao,
+  val lessonJointDao: LessonJoinDAO,
   val daoLocation: LocationDAO,
   val daoCategory: CategoryDao,
   cc: MessagesControllerComponents
@@ -99,6 +100,7 @@ class ArticleController @javax.inject.Inject()(
         locSeq       <- daoLocation.filterByIds(Location.Region.IS_PREF_ALL)
         catSeq       <- daoCategory.findAll
         Some(lesson) <- teacherRequestDao.get(lessonId)
+        numJoin      <- lessonJoinDao.filterByLessonId(lessonId).size
       } yield {
         val vv = SiteViewValueLesson(
           layout     = ViewValuePageLayout(id = r.uri),
@@ -106,7 +108,7 @@ class ArticleController @javax.inject.Inject()(
           categories = catSeq,
           lesson     = lesson,
         )
-        Ok(views.html.site.article.lesson.Main(vv))
+        Ok(views.html.site.article.lesson.Main(vv), numJoin)
       }
     }
 }
