@@ -7,8 +7,10 @@ import persistence.udb.model.User
 
 case class LessonJoin(
   id:        Option[LessonJoin.Id],         // 関係ID
-  userId:    Option[User.Id]
-  lessonId:  Option[TeacherRequest.Id],
+  userId:    User.Id,
+  lessonId:  TeacherRequest.Id,
+  updatedAt: LocalDateTime = LocalDateTime.now,
+  createdAt: LocalDateTime = LocalDateTime.now,
 )
 
 // コンパニオンオブジェクト

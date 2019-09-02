@@ -1,4 +1,4 @@
-package persistence.request.dao
+package persistence.lessonjoin.dao
 
 import java.time.LocalDateTime
 
@@ -60,22 +60,26 @@ class LessonJoinDAO @javax.inject.Inject()(
   class LessonJoinTable(tag: Tag) extends Table[LessonJoin](tag, "participation_status_relationship") {
     
     // Table's columns
-    /* @1 */ def id       = column[LessonJoin.Id]     ("id", O.PrimaryKey, O.AutoInc)
-    /* @2 */ def userId   = column[User.Id]           ("user_id")
-    /* @3 */ def lessonId = column[TeacherRequest.Id] ("teacher_request_id")
+    /* @1 */ def id        = column[LessonJoin.Id]     ("id", O.PrimaryKey, O.AutoInc)
+    /* @2 */ def userId    = column[User.Id]           ("user_id")
+    /* @3 */ def lessonId  = column[TeacherRequest.Id] ("teacher_request_id")
+    /* @4 */ def updatedAt = column[LocalDateTime]     ("updated_at")
+    /* @5 */ def createdAt = column[LocalDateTime]     ("created_at")
 
     // The * projection of the table
     def * = (
       id.?,
       userId,
       lessonId,
+      updatedAt,
+      createdAt,
     ) <> (
       /** The bidirectional mappings : Tuple(table) => Model */
-      (Request.apply _).tupled,
-      /*/** The bidirectional mappings : Model => Tuple(table) */
-      (v: TableElementType) => Request.unapply(v).map(_.copy(
-        _8 = LocalDateTime.now
-      ))*/
+      (LessonJoin.apply _).tupled,
+      /** The bidirectional mappings : Model => Tuple(table) */
+      (v: TableElementType) => LessonJoin.unapply(v).map(_.copy(
+        _4 = LocalDateTime.now
+      ))
     )
   }
 }
