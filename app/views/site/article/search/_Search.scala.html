@@ -53,17 +53,17 @@
         <div class="row">
             <div class="col">
                 @for(request <- vv.requests) {
-
-                    <a href="#" class="link">
+                    <a href="@controllers.article.routes.ArticleController.showRequest(request.id.get)" class="link">
                         <p>@request.name</p>
-
-
                     </a>
                 }
             </div>
             <div class="col">
-                <a href="#" class="link">
-                </a>
+                @for(lesson <- vv.lessons) {
+                    <a href="@controllers.article.routes.ArticleController.showLesson(lesson.id.get)" class="link">
+                        <p>@lesson.name</p>
+                    </a>
+                }
             </div>
         </div>
     </div>

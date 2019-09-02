@@ -31,8 +31,8 @@ class ArticleController @javax.inject.Inject()(
     * 検索
     */
     def search = (Action).async { implicit r =>
-      val locationId = r.headers.get("locationId")
-      val categoryId = r.headers.get("categoryId")
+      val locationId = r.getQueryString("locationId")
+      val categoryId = r.getQueryString("categoryId")
 
       for {
         locSeq     <- daoLocation.filterByIds(Location.Region.IS_PREF_ALL)
