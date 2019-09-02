@@ -20,101 +20,98 @@
 
     @** --[ 提案 ]-------------------------------------------------------- *@
     <div class="content__section content">
+        <article class="request-item">
+            <a href="#">
+                <div class="item-panel__wrapper">
+                    <section class="request-item__content">
 
-            <article class="request-item">
-                <a href="#">
+                        <table class="item-panel__content">
+                            <tr>
+                                <td class="inline, title-name" colspan="3">
+                                    @vv.request.name
+                                </td>
+                            </tr>
+                            <tr class="detail">
+                                <th class="inline">提案詳細:</th>
+                                <td class="inline">
+                                    @vv.request.detail
+                                </td>
+                            </tr>
+                            <tr class="date">
+                                <th class="inline">提案日:</th>
+                                <td class="inline">
+                                    @vv.request.date
+                                </td>
+                            </tr>
+                            <tr class="category">
+                                <th class="inline">カテゴリ:</th>
+                                <td class="inline">
+                                    @vv.categories.find(x => x.id == vv.request.categoryId ).map(_.name)
+                                </td>
+                            </tr>
+                            <tr class="location">
+                                <th class="inline">地域:</th>
+                                <td class="inline">
+                                    @vv.locations.find(x => x.id == vv.request.locationId ).map(_.namePref)
+                                </td>
+                            </tr>
+                            <tr class="good-number">
+                                <th class="inline">いいね:</th>
+                                <td class="inline">
+                                    @numGood
+                                </td>
+                            </tr>
+                            <tr class="good-number">
+                                <th class="inline">最終更新日時:</th>
+                                <td class="inline">
+                                    @vv.request.updatedAt
+                                </td>
+                            </tr>
+                        </table>
+                    </section>
+                </div>
+            </a>
+        </article>
+
+        <div class="bottom">
+        @** いいね *@
+            @if( already == 0 ){
+                @helper.form(action = controllers.article.routes.ArticleController.insertRequestGood(vv.request.id.get)) {
+                    <input class="bottom-input" type="submit" value="いいね">
+                }
+            } else {
+                <input class="inline bottom-input" value="いいね済">
+            }
+
+            @helper.form(action = controllers.input.routes.InputController.lessonPage(vv.request.id.get)) {
+                <input class="bottom-input" type="submit" value="提案する">
+            }
+        </div>
+
+        <div class="container">
+            @for(lesson <- vv.lessons) {
+                <a href="@controllers.article.routes.ArticleController.showLesson(lesson.id.get)" class="link">
                     <div class="item-panel__wrapper">
-                        <section class="request-item__content">
+                        <header class="facility-item__header">
+                            <div class="name">
+                            @lesson.name
+                            </div>
+                        </header>
+                        <section class="facility-item__content">
                             <div>
-                                <table class="item-panel__content">
-                                    <tr>
-                                        <td class="inline, title-name" colspan="3">
-                                            @vv.request.name
-                                        </td>
-                                    </tr>
-                                    <tr class="detail">
-                                        <th class="inline">提案詳細:</th>
-                                        <td class="inline">
-                                            @vv.request.detail
-                                        </td>
-                                    </tr>
-                                    <tr class="date">
-                                        <th class="inline">提案日:</th>
-                                        <td class="inline">
-                                            @vv.request.date
-                                        </td>
-                                    </tr>
-                                    <tr class="category">
-                                        <th class="inline">カテゴリ:</th>
-                                        <td class="inline">
-                                            @vv.categories.find(x => x.id == vv.request.categoryId ).map(_.name)
-                                        </td>
-                                    </tr>
-                                    <tr class="location">
-                                        <th class="inline">地域:</th>
-                                        <td class="inline">
-                                            @vv.locations.find(x => x.id == vv.request.locationId ).map(_.namePref)
-                                        </td>
-                                    </tr>
-                                    <tr class="good-number">
-                                        <th class="inline">いいね:</th>
-                                        <td class="inline">
-                                            @numGood
-                                        </td>
-                                    </tr>
-                                    <tr class="good-number">
-                                        <th class="inline">最終更新日時:</th>
-                                        <td class="inline">
-                                            @vv.request.updatedAt
-                                        </td>
-                                    </tr>
-                                </table>
+                                <div class="item-panel__content">
+                                    <div class="description">
+                                        <label class="inline">備考:</label>
+                                        <p class="inline">
+                                        @lesson.updatedAt
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </section>
                     </div>
                 </a>
-            </article>
-
-            <div class="bottom">
-            @** いいね *@
-                @if( already == 0 ){
-                    @helper.form(action = controllers.article.routes.ArticleController.insertRequestGood(vv.request.id.get)) {
-                        <input class="bottom-input" type="submit" value="いいね">
-                    }
-                } else {
-                    <input class="inline bottom-input" value="いいね済"></input>
-                }
-
-                @helper.form(action = controllers.input.routes.InputController.lessonPage(vv.request.id.get)) {
-                    <input class="bottom-input" type="submit" value="提案する">
-                }
-            </div>
-
-            <div class="container">
-                @for(lesson <- vv.lessons) {
-                    <a href="@controllers.article.routes.ArticleController.showLesson(lesson.id.get)" class="link">
-                        <div class="item-panel__wrapper">
-                            <header class="facility-item__header">
-                                <div class="name">
-                                @lesson.name
-                                </div>
-                            </header>
-                            <section class="facility-item__content">
-                                <div>
-                                    <div class="item-panel__content">
-                                        <div class="description">
-                                            <label class="inline">備考:</label>
-                                            <p class="inline">
-                                            @lesson.updatedAt
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                        </div>
-                    </a>
-                }
-            </div>
-
+            }
+        </div>
     </div>
 }
