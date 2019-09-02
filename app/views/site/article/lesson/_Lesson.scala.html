@@ -1,0 +1,75 @@
+
+@import views.html.helper
+@import model.site.article.SiteViewValueLesson
+@import play.api.data.Form
+
+@import persistence.teacherrequest.model.TeacherRequest
+@(vv: SiteViewValueLesson, numJoin: Int, already: Int)(implicit messages: play.api.i18n.Messages)
+
+<h3 class="content__section header">
+  <span class="header__title">@vv.lesson.name</span>
+</h3>
+
+<div class="content__section content">
+  <article class="facility-list-item">
+    <div class="item-panel__wrapper">
+      <header class="facility-item__header">
+        <div class="people">
+          <label class="inline">定員:</label>
+          <p class="inline">
+            @vv.lesson.maxPeople
+          </p>
+          <label class="inline">開催のために必要な受講者数:</label>
+          <p class="inline">
+            @vv.lesson.minPeople
+          </p>
+          <label class="inline">現在参加者数:</label>
+          <p class="inline">
+            @numJoin
+          </p>
+        </div>
+        <div class="money">
+          <label class="inline">受講料:</label>
+          <p class="inline">
+            @vv.lesson.fee
+          </p>
+        </div>
+      </header>
+      <section class="facility-item__content">
+        <div>
+          <div class="item-panel__content">
+            <div class="description">
+              <label class="inline">詳細:</label>
+              <p class="inline">
+                @vv.lesson.detail
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </article>
+</div>
+
+@** --[ 遷移フォーム ]---------------------------------------------------------- *@  
+  <div class="content__section form">
+  
+  @** 参加 *@
+  @if( already == 0 ){
+    @helper.form(action = controllers.article.routes.ArticleController.insertLessonJoin(vv.lesson.id.get)) {
+      <input type="submit" value="参加">
+    }
+  } else {
+    <p class="inline">
+      参加済
+    </p>
+  }
+  @** 元の提案 *@
+  @helper.form(action = controllers.article.routes.ArticleController.showRequest(vv.lesson.requestId)) {
+    <input type="submit" value="元の提案">
+  }
+  @** 戻る *@
+  @helper.form(action = controllers.top.routes.TopController.show) {
+    <input type="submit" value="戻る">
+  }
+  </div>
