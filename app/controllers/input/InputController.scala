@@ -64,9 +64,10 @@ class InputController @javax.inject.Inject()(
       },
       requestForm => {
         for {
-          _ <- requestDao.insert(requestForm.toRequest)
+          _      <- requestDao.insert(requestForm.toRequest)
+          madeRequest <- requestDao.getLast
         } yield {
-          Redirect("/")
+          Redirect(controllers.article.routes.ArticleController.showRequest(madeRequest.get.id.get))
         }
       }
     )
@@ -117,9 +118,10 @@ class InputController @javax.inject.Inject()(
       lessonFromInput => {
         for {
           Some(request) <- requestDao.get(requestId)
-          _ <- teacherRequestDao.insert(lessonFromInput.toTeacherRequest(requestId, request.categoryId, request.locationId))
+          _            <- teacherRequestDao.insert(lessonFromInput.toTeacherRequest(requestId, request.categoryId, request.locationId))
+          madeLesson   <- teacherRequestDao.getLast
         } yield {
-          Redirect("/")
+          Redirect(controllers.article.routes.ArticleController.showLesson(madeLesson.get.id.get))
         }
       }
     )
