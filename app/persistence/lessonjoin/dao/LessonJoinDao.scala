@@ -42,6 +42,16 @@ class LessonJoinDAO @javax.inject.Inject()(
     }
 
   /**
+  * lessonIdとuserIdに該当列取得
+  */
+  def filterByUserAndLessonId(userId : User.Id, lessonId: TeacherRequest.Id): Future[Seq[LessonJoin]] =
+    db.run {
+      slick
+        .filter(row => ((row.userId === userId) && (row.lessonId === lessonId) ))
+        .result
+    }
+
+  /**
   * 全取得
   */
   def findAll: Future[Seq[LessonJoin]] =

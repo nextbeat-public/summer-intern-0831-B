@@ -22,7 +22,7 @@ GET  /search                      controllers.article.ArticleController.search(l
 GET  /request/:requestId          controllers.article.ArticleController.showRequest(requestId: Long)
 GET  /lesson/:lessonId            controllers.article.ArticleController.showLesson(lessonId: Long)
 # lessonに参加
-POST /lesson/:lessonId/join       controllers.article.ArticleController.insertLessonJoin(userId: Long, lessonId: Long)
+POST /lesson/:lessonId/join       controllers.article.ArticleController.insertLessonJoin(lessonId: Long)
 
 # --[ 入力ページ ]----------------------------------------------------------------　
 GET  /request/input               controllers.input.InputController.requestPage

@@ -96,12 +96,13 @@ class ArticleController @javax.inject.Inject()(
     /**
     * 授業提案
     */
-    def showLesson(lessonId: Long) = Action.async { implicit r =>
+    def showLesson(lessonId: Long) = (Action andThen AuthenticationAction()).async { implicit r =>
       for {
         locSeq       <- daoLocation.filterByIds(Location.Region.IS_PREF_ALL)
         catSeq       <- daoCategory.findAll
         Some(lesson) <- teacherRequestDao.get(lessonId)
         lessonJoins  <- lessonJoinDao.filterByLessonId(lessonId)
+        alreadyJoin  <- lessonJoinDao.filterByUserAndLessonId(r.userId, lessonId)
       } yield {
         val vv = SiteViewValueLesson(
           layout     = ViewValuePageLayout(id = r.uri),
@@ -109,12 +110,12 @@ class ArticleController @javax.inject.Inject()(
           categories = catSeq,
           lesson     = lesson,
         )
-        Ok(views.html.site.article.lesson.Main(vv, lessonJoins.size))
+        Ok(views.html.site.article.lesson.Main(vv, lessonJoins.size, alreadyJoin.size))
       }
     }
     // 参加追加
-    def insertLessonJoin(userId: Long, lessonId: Long) = Action { implicit r =>
-      val insertData = LessonJoin(None, userId, lessonId)
+    def insertLessonJoin(lessonId: Long) = (Action andThen AuthenticationAction()) { implicit r =>
+      val insertData = LessonJoin(None, r.userId, lessonId)
       lessonJoinDao.insert(insertData)
       Redirect(routes.ArticleController.showLesson(lessonId))
     }

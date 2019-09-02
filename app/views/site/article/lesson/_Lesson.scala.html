@@ -4,7 +4,7 @@
 @import play.api.data.Form
 
 @import persistence.teacherrequest.model.TeacherRequest
-@(vv: SiteViewValueLesson, numJoin: Int)(implicit messages: play.api.i18n.Messages)
+@(vv: SiteViewValueLesson, numJoin: Int, already: Int)(implicit messages: play.api.i18n.Messages)
 
 <h3 class="content__section header">
   <span class="header__title">@vv.lesson.name</span>
@@ -55,8 +55,8 @@
   <div class="content__section form">
   
   @** 参加 *@
-  @if( true ){
-    @helper.form(action = controllers.article.routes.ArticleController.insertLessonJoin(1/*userId*/, vv.lesson.id.get)) {
+  @if( already == 0 ){
+    @helper.form(action = controllers.article.routes.ArticleController.insertLessonJoin(vv.lesson.id.get)) {
       <input type="submit" value="参加">
     }
   } else {
