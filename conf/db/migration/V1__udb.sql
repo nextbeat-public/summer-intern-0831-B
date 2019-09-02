@@ -48,7 +48,7 @@ CREATE TABLE "user_request" (
 INSERT INTO "user_request"
  ("user_request_name", "user_request_detail", "user_request_date", "category_id", "location_id", "user_request_good")
 VALUES
- ('Scala - playframework講座', '~~~~~~詳細~~~~~', '2019-12-31', '06000', '21000', 0);
+ ('Scalaを学びたい', '岐阜でplayframeworkの学習がしたい。', '2019-12-31', '06000', '21000', 0);
 
 CREATE TABLE "request_good_relationship" (
  "id"                             INT          NOT     NULL AUTO_INCREMENT PRIMARY KEY,
@@ -88,35 +88,7 @@ INSERT INTO "teacher_request" (
   "location_id",
   "user_request_id",
 ) VALUES
- ('Scalaを学びたい', '岐阜でplayframeworkの学習がしたい。', '2020-08-30', '2020-07-30', 20, 10, '2020-08-30', 10000, '06000', '21000', 1);
- INSERT INTO "teacher_request" (
-  "teacher_request_name",
-  "teacher_request_detail",
-  "teacher_request_date",
-  "teacher_request_deadline",
-  "teacher_request_maximum_people",
-  "teacher_request_minimum_people",
-  "teacher_request_scheduled_date",
-  "teacher_request_study_fee",
-  "category_id",
-  "location_id",
-  "user_request_id",
-) VALUES
- ('農家の始め方が知りたい', 'トマトを育てたいが、どのように始めるかわからない', '2020-08-30', '2020-07-30', 20, 10, '2020-08-30', 10000, '01000', '20000', 1);
- INSERT INTO "teacher_request" (
-  "teacher_request_name",
-  "teacher_request_detail",
-  "teacher_request_date",
-  "teacher_request_deadline",
-  "teacher_request_maximum_people",
-  "teacher_request_minimum_people",
-  "teacher_request_scheduled_date",
-  "teacher_request_study_fee",
-  "category_id",
-  "location_id",
-  "user_request_id",
-) VALUES
- ('りんご栽培の始め方を教えて欲しい！', '石川県で、りんご栽培に関する運営を一通り知りたい。', '2020-08-30', '2020-07-30', 20, 10, '2020-08-30', 10000, '02000', '17000', 1);
+ ('Scala - playframework講座', '~~詳細~~', '2020-08-30', '2020-07-30', 20, 10, '2020-08-30', 10000, '06000', '21000', 1);
 
 CREATE TABLE "participation_status_relationship" (
  "id"                             INT          NOT     NULL AUTO_INCREMENT PRIMARY KEY,
