@@ -53,6 +53,16 @@ class TeacherRequestDao @javax.inject.Inject()(
     }
 
   /**
+    * requestIdに該当するrequestSeq
+    */
+  def filterByRequestId(requestId: Request.Id): Future[Seq[TeacherRequest]] =
+    db.run {
+      slick
+        .filter(_.requestId === requestId)
+        .result
+    }
+
+  /**
     * categoryIdに該当するrequestSeq
     */
   def filterByCategoryIds(categoryId: Category.Id): Future[Seq[TeacherRequest]] =

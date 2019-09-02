@@ -86,7 +86,33 @@
                     いいね済
                     </p>
                 }
-            </div>>
+            </div>
+
+            <div class="container">
+                @for(lesson <- vv.lessons) {
+                    <a href="@controllers.article.routes.ArticleController.showLesson(lesson.id.get)" class="link">
+                        <div class="item-panel__wrapper">
+                            <header class="facility-item__header">
+                                <div class="name">
+                                @lesson.name
+                                </div>
+                            </header>
+                            <section class="facility-item__content">
+                                <div>
+                                    <div class="item-panel__content">
+                                        <div class="description">
+                                            <label class="inline">備考:</label>
+                                            <p class="inline">
+                                            @lesson.updatedAt
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </a>
+                }
+            </div>
 
     </div>
 }
