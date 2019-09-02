@@ -1,11 +1,4 @@
-//------------------------------------------------------------------------------
-// This file is part of the Nextbeat services.
-//
-// For the full copyright and license information,
-// please view the LICENSE file that was distributed with this source code.
-//------------------------------------------------------------------------------
-
-#site-user-request {
+#site-user-lesson {
   //-- [ レイアウト ] ----------------------------------------------------------\
 
   table{
@@ -53,7 +46,7 @@
     padding: 10px 0;
   }
 
-  .request-item__content {
+  .lesson-item__content {
     padding-top: 20px;
     padding-bottom: 20px;
   }
@@ -66,6 +59,7 @@
     text-shadow: -1px -1px 1px #52c2d0, 1px -1px 1px #52c2d0, -1px 1px 1px #52c2d0, 1px 1px 1px #52c2d0; /* 文字の縁取り */
     font-size: 50px;
   }
+
   .title-name:before {
     background: repeating-linear-gradient(45deg, #f5d5da, #f5d5da 4px, #fcf0f1 0, #fcf0f1 7px); /* 斜めボーダー */
     border-radius: 0 5px 5px 0;
@@ -81,6 +75,8 @@
   .bottom {
     style: "display:inline-flex";
     text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
 
   .bottom-input {
