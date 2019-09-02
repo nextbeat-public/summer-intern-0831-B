@@ -11,9 +11,6 @@
 @import persistence.request.model.Request
 @(vv: SiteViewValueRequest)(implicit messages: play.api.i18n.Messages)
 
-val locMap = vv.location.map(v => (v.id, v.namePref))
-val catMap = vv.category.map(v => (v.id, v.name))
-
 @** ユーザ提案表示ページ *@
 @views.html.common.layout.InnerContent("site-app-new-user-form", "content") {
     @** --[ 見出し ]---------------------------------------------------------- *@
@@ -50,13 +47,13 @@ val catMap = vv.category.map(v => (v.id, v.name))
                                     <tr class="category">
                                         <th class="inline">カテゴリ:</th>
                                         <td class="inline">
-                                            catMap(vv.request.categoryId)
+
                                         </td>
                                     </tr>
                                     <tr class="location">
                                         <th class="inline">地域:</th>
                                         <td class="inline">
-                                            locMap(vv.request.locationId)
+                                            @vv.locations.find(x => x.id == vv.request.locationId ).map(_.namePref)
                                         </td>
                                     </tr>
                                     <tr class="good-number">
