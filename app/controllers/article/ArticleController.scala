@@ -7,6 +7,7 @@ import persistence.geo.dao.LocationDAO
 import persistence.category.dao.CategoryDao
 import persistence.request.dao.RequestDAO
 import persistence.teacherrequest.dao.TeacherRequestDao
+import persistence.lessonjoin.dao.LessonJoinDao
 import model.site.article.{SiteViewValueLesson, SiteViewValueRequest, SiteViewValueSearch}
 import model.component.util.ViewValuePageLayout
 import mvc.action.AuthenticationAction
