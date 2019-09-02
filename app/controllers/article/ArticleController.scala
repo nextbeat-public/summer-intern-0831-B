@@ -89,6 +89,7 @@ class ArticleController @javax.inject.Inject()(
         locSeq        <- daoLocation.filterByIds(Location.Region.IS_PREF_ALL)
         catSeq        <- daoCategory.findAll
         Some(request) <- requestDao.get(requestId)
+        lessons       <- teacherRequestDao.filterByRequestId(requestId)
         requestGoods  <- requestGoodDao.filterByRequestId(requestId)
         alreadyGood   <- requestGoodDao.filterByUserAndRequestId(r.userId, requestId)
       } yield {
@@ -97,6 +98,7 @@ class ArticleController @javax.inject.Inject()(
           locations  = locSeq,
           categories = catSeq,
           request    = request,
+          lessons    = lessons,
         )
         Ok(views.html.site.article.request.Main(vv, requestGoods.size, alreadyGood.size))
       }
