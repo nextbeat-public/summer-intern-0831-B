@@ -100,8 +100,8 @@ class RequestDAO @javax.inject.Inject()(
       detail,
       date,
       numGood,
-      categoryId,
       locationId,
+      categoryId,
       updatedAt,
       createdAt
     ) <> (
