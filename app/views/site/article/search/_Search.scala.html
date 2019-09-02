@@ -48,4 +48,23 @@
         </div>
     }
     </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                @for(request <- vv.requests) {
+
+                    <a href="#" class="link">
+                        <p>@request.name</p>
+
+
+                    </a>
+                }
+            </div>
+            <div class="col">
+                <a href="#" class="link">
+                </a>
+            </div>
+        </div>
+    </div>
 }
