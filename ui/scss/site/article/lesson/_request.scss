@@ -1,0 +1,141 @@
+//------------------------------------------------------------------------------
+// This file is part of the Nextbeat services.
+//
+// For the full copyright and license information,
+// please view the LICENSE file that was distributed with this source code.
+//------------------------------------------------------------------------------
+
+#site-user-request {
+  //-- [ レイアウト ] ----------------------------------------------------------\
+
+  table{
+    width: 100%;
+    border-collapse: collapse;
+    border: 5px solid #52c2d0;
+  }
+
+  table tr{
+    border-bottom: solid 2px white;
+  }
+
+  table tr:last-child{
+    border-bottom: none;
+  }
+
+  table th{
+    position: relative;
+    text-align: left;
+    width: 30%;
+    background-color: #52c2d0;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  table th:after{
+    display: block;
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    top:calc(50% - 10px);
+    right:-10px;
+    border-left: 10px solid #52c2d0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+  }
+
+  table td {
+    text-align: left;
+    width: 70%;
+    text-align: center;
+    background-color: #eee;
+    padding: 10px 0;
+  }
+
+  .request-item__content {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .title-name {
+    border-radius: 5px;
+    color: #fff; /* 文字色 */
+    padding: 5px 10px; /* 上下・左右の余白 */
+    position: relative;
+    text-shadow: -1px -1px 1px #52c2d0, 1px -1px 1px #52c2d0, -1px 1px 1px #52c2d0, 1px 1px 1px #52c2d0; /* 文字の縁取り */
+    font-size: 50px;
+  }
+  .title-name:before {
+    background: repeating-linear-gradient(45deg, #f5d5da, #f5d5da 4px, #fcf0f1 0, #fcf0f1 7px); /* 斜めボーダー */
+    border-radius: 0 5px 5px 0;
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+  }
+
+  .bottom {
+    style: "display:inline-flex";
+    text-align: center;
+  }
+
+  .bottom-input {
+    text-align: center;
+    -webkit-appearance: none;
+    background-image: linear-gradient(45deg, #52c2d0 0%, #52c2d0 100%);
+    border: none;
+    border-radius: 0;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1em;
+    margin: 0 0 1em;
+    padding: 0.6em 2em;
+    text-decoration: none;
+    :hover,
+    :focus {
+      outline: none;
+    }
+  }
+
+  .bottom-input::-moz-foucus-inner {
+    border: none;
+    padding: 0;
+  }
+
+  .container {
+    display: inline-block;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 25px;
+    color: #ffffff;
+    background-image: linear-gradient(#6795fd 0%, #67ceff 100%);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
+    border-bottom: solid 3px #5e7fca;
+    margin-bottom: 20px;
+  }
+
+  .container:active {
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
+    border-bottom: none;
+  }
+
+  .content__section {
+    .inline {
+      display: inline-block;
+    }
+
+    &.content {
+      width: 1024px;
+      margin: auto;
+
+    }
+  }
+}
