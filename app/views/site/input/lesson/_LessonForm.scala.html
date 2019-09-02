@@ -1,0 +1,109 @@
+@*
+ * This file is part of the Nextbeat services.
+ *
+ * For the full copyright and license information,
+ * please view the LICENSE file that was distributed with this source code.
+ *@
+
+@import views.html.helper
+@import model.site.input.lesson.SiteViewValueInputLesson
+@import persistence.udb.model.User
+@import play.api.data.Form
+
+@(vv: SiteViewValueInputLesson)(implicit messages: play.api.i18n.Messages)
+
+@views.html.common.layout.InnerContent("site-app-new-user-form", "content") {
+  <h3 class="content__section header">
+    <span class="header__title">新規レッスン登録</span>
+  </h3>
+
+  <div class="content__section form">
+    @helper.form(action = controllers.input.routes.InputController.lessonInput(vv.request.id.get)) {
+
+      @** 名前 *@
+      <div class="form__section name">
+        <span class="form__section name">
+          @helper.inputText(
+            vv.form("name"),
+            '_label           -> "リクエスト名",
+            '_showConstraints -> false
+          )
+        </span>
+      </div>
+
+      <div class="form__section name">
+        <span class="form__section name">
+          @helper.inputText(
+            vv.form("max_people"),
+            '_label           -> "最大参加人数",
+			'_type            -> "number",
+            '_showConstraints -> false
+          )
+        </span>
+      </div>
+
+      <div class="form__section name">
+        <span class="form__section name">
+          @helper.inputText(
+            vv.form("min_people"),
+            '_label           -> "最低参加人数",
+			'_type            -> "number",
+            '_showConstraints -> false
+          )
+        </span>
+      </div>
+
+      <div class="form__section name">
+        <span class="form__section name">
+          @helper.inputText(
+            vv.form("fee"),
+            '_label           -> "参加料金/円(一人当たり)",
+			'_type            -> "number",
+            '_showConstraints -> false
+          )
+        </span>
+      </div>
+
+      <div class="form__section name">
+        <span class="form__section name">
+		@helper.input(
+			vv.form("schedule_date"),
+			'_label            -> "開催日時",
+			'_showConstraints  -> false
+		) { (id, name, value, args) =>
+			<input type="datetime-local" name="@name" id="@id" value="@value" @toHtmlArgs(args)>
+		}
+        </span>
+      </div>
+
+      <div class="form__section name">
+        <span class="form__section name">
+		@helper.input(
+			vv.form("deadline_date"),
+			'_label            -> "参加締切日時",
+			'_showConstraints  -> false
+		) { (id, name, value, args) =>
+			<input type="datetime-local" name="@name" id="@id" value="@value" @toHtmlArgs(args)>
+		}
+        </span>
+      </div>
+
+      <div class="form__section name">
+        <span class="form__section name">
+          @helper.textarea(
+            vv.form("detail"),
+            '_label           -> "詳細事項",
+            '_showConstraints -> false
+          )
+        </span>
+      </div>
+
+      @** 登録ボタン *@
+      <div class="form__section submit">
+        <button class="button button-stroked" type="submit">
+          <span class="submit__text">新規レッスン登録</span>
+        </button>
+      </div>
+	}
+  </div>
+}

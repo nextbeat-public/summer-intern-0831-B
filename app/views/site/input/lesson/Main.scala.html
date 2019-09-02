@@ -5,9 +5,9 @@
  * please view the LICENSE file that was distributed with this source code.
  *@
 
+@import model.site.input.lesson.SiteViewValueInputLesson
 @import persistence.udb.model.User
 @import play.api.data.Form
-@import model.site.input.lesson.SiteViewValueInputLesson
 
 @** ユーザー登録フォーム *@
 @(vv: SiteViewValueInputLesson)(implicit messages: play.api.i18n.Messages)
@@ -20,4 +20,5 @@
 
 @** テンプレート: コンテンツ *@
 @tplContent = {
+  @views.html.site.input.lesson._LessonForm(vv)
 }
