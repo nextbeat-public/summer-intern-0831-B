@@ -1,0 +1,82 @@
+@*
+* This file is part of the Nextbeat services.
+*
+* For the full copyright and license information,
+* please view the LICENSE file that was distributed with this source code.
+*@
+@import views.html.helper
+@import model.site.article.SiteViewValueRequest
+@import play.api.data.Form
+
+@import persistence.request.model.Request
+@(vv: SiteViewValueRequest)(implicit messages: play.api.i18n.Messages)
+
+val locMap = vv.location.map(v => (v.id, v.namePref))
+val catMap = vv.category.map(v => (v.id, v.name))
+
+@** ユーザ提案表示ページ *@
+@views.html.common.layout.InnerContent("site-app-new-user-form", "content") {
+    @** --[ 見出し ]---------------------------------------------------------- *@
+    <h3 class="content__section header">
+        <span class="header__title">ユーザ提案</span>
+    </h3>
+
+    @** --[ 提案 ]-------------------------------------------------------- *@
+    <div class="content__section content">
+
+            <article class="request-item">
+                <a href="#">
+                    <div class="item-panel__wrapper">
+                        <section class="frequest-item__content">
+                            <div>
+                                <table class="item-panel__content">
+                                    <tr class="name">
+                                        <th class="inline" colspan="3">
+                                            @vv.request.name
+                                        </th>
+                                    </tr>
+                                    <tr class="detail">
+                                        <th class="inline">提案詳細:</th>
+                                        <td class="inline">
+                                            @vv.request.detail
+                                        </td>
+                                    </tr>
+                                    <tr class="date">
+                                        <th class="inline">提案日:</th>
+                                        <td class="inline">
+                                            @vv.request.date
+                                        </td>
+                                    </tr>
+                                    <tr class="category">
+                                        <th class="inline">カテゴリ:</th>
+                                        <td class="inline">
+                                            catMap(vv.request.categoryId)
+                                        </td>
+                                    </tr>
+                                    <tr class="location">
+                                        <th class="inline">地域:</th>
+                                        <td class="inline">
+                                            locMap(vv.request.locationId)
+                                        </td>
+                                    </tr>
+                                    <tr class="good-number">
+                                        <th class="inline">いいね:</th>
+                                        <td class="inline">
+                                            @vv.request.numGood
+                                        </td>
+                                    </tr>
+                                    <tr class="good-number">
+                                        <th class="inline">最終更新日時:</th>
+                                        <td class="inline">
+                                            @vv.request.updatedAt
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </section>
+                    </div>
+                </a>
+            </article>
+
+    </div>
+}
