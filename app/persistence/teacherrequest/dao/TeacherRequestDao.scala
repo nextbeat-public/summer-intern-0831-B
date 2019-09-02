@@ -37,6 +37,16 @@ class TeacherRequestDao @javax.inject.Inject()(
         .result.headOption
     }
 
+  /**
+  * 末尾request取得
+  */
+  def getLast: Future[Option[TeacherRequest]] =
+    db.run {
+      slick
+        .sortBy(row => (row.id.desc))
+        .result.headOption
+    }
+
   def findAll: Future[Seq[TeacherRequest]] =
     db.run {
       slick.result

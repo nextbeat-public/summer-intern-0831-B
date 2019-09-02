@@ -30,6 +30,16 @@ class RequestDAO @javax.inject.Inject()(
         .filter(_.id === id)
         .result.headOption
     }
+
+  /**
+  * 末尾request取得
+  */
+  def getLast: Future[Option[Request]] =
+    db.run {
+      slick
+        .sortBy(row => (row.id.desc))
+        .result.headOption
+    }
   
   /**
   * 全request取得
