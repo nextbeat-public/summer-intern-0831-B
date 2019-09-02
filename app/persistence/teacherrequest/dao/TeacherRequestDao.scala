@@ -72,6 +72,16 @@ class TeacherRequestDao @javax.inject.Inject()(
         .result
     }
 
+  /**
+  * teacherRequestの追加
+  */
+  def insert(teacherRequest: TeacherRequest) = {
+    val entWithNoId = teacherRequest.copy(id = None)
+    db.run {
+      slick returning slick.map(_.id) += entWithNoId
+    }
+  }
+
   // --[ テーブル定義 ] --------------------------------------------------------
   class TeacherRequestTable(tag: Tag) extends Table[TeacherRequest](tag, "teacher_request") {
 

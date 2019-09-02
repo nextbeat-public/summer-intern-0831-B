@@ -7,6 +7,8 @@ import persistence.geo.dao.LocationDAO
 import persistence.category.dao.CategoryDao
 import persistence.request.dao.RequestDAO
 import persistence.teacherrequest.dao.TeacherRequestDao
+import persistence.lessonjoin.dao.LessonJoinDAO
+import persistence.lessonjoin.model.LessonJoin
 import model.site.article.{SiteViewValueLesson, SiteViewValueRequest, SiteViewValueSearch}
 import model.component.util.ViewValuePageLayout
 import mvc.action.AuthenticationAction
@@ -14,6 +16,7 @@ import mvc.action.AuthenticationAction
 class ArticleController @javax.inject.Inject()(
   val requestDao: RequestDAO,
   val teacherRequestDao: TeacherRequestDao,
+  val lessonJoinDao: LessonJoinDAO,
   val daoLocation: LocationDAO,
   val daoCategory: CategoryDao,
   cc: MessagesControllerComponents
@@ -93,11 +96,13 @@ class ArticleController @javax.inject.Inject()(
     /**
     * 授業提案
     */
-    def showLesson(lessonId: Long) = Action.async { implicit r =>
+    def showLesson(lessonId: Long) = (Action andThen AuthenticationAction()).async { implicit r =>
       for {
         locSeq       <- daoLocation.filterByIds(Location.Region.IS_PREF_ALL)
         catSeq       <- daoCategory.findAll
         Some(lesson) <- teacherRequestDao.get(lessonId)
+        lessonJoins  <- lessonJoinDao.filterByLessonId(lessonId)
+        alreadyJoin  <- lessonJoinDao.filterByUserAndLessonId(r.userId, lessonId)
       } yield {
         val vv = SiteViewValueLesson(
           layout     = ViewValuePageLayout(id = r.uri),
@@ -105,7 +110,13 @@ class ArticleController @javax.inject.Inject()(
           categories = catSeq,
           lesson     = lesson,
         )
-        Ok(views.html.site.article.lesson.Main(vv))
+        Ok(views.html.site.article.lesson.Main(vv, lessonJoins.size, alreadyJoin.size))
       }
+    }
+    // 参加追加
+    def insertLessonJoin(lessonId: Long) = (Action andThen AuthenticationAction()) { implicit r =>
+      val insertData = LessonJoin(None, r.userId, lessonId)
+      lessonJoinDao.insert(insertData)
+      Redirect(routes.ArticleController.showLesson(lessonId))
     }
 }

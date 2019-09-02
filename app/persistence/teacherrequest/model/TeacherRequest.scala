@@ -59,13 +59,13 @@ object TeacherRequest {
   // --[ フォーム定義 ]---------------------------------------------------------
   val formForTeacherRequestInput = Form(
     mapping(
-      "name" -> text,
-      "detail" -> text,
+      "name" -> nonEmptyText,
+      "detail" -> nonEmptyText,
       "max_people" -> number,
       "min_people" -> number,
       "fee" -> number,
-      "deadline_date" -> localDateTime("yyyy-mm-ddTHH:MM"),
-      "schedule_date" -> localDateTime("yyyy-mm-ddTHH:MM"),
+      "deadline_date" -> localDateTime("yyyy-mm-dd'T'HH:MM"),
+      "schedule_date" -> localDateTime("yyyy-mm-dd'T'HH:MM"),
     )(
       (x1, x2, x3, x4, x5, x6, x7) => TeacherRequestInput(
         name         = x1,
