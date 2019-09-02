@@ -95,6 +95,6 @@ CREATE TABLE "participation_status_relationship" (
  "user_id"                        INT,
  "teacher_request_id"             INT,
  "updated_at"                     TIMESTAMP    NOT     NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
- "created_at"                     TIMESTAMP    NOT     NULL DEFAULT CURRENT_TIMESTAMP
+ "created_at"                     TIMESTAMP    NOT     NULL DEFAULT CURRENT_TIMESTAMP,
 ) ENGINE=InnoDB;
 

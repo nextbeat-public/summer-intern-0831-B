@@ -52,8 +52,10 @@ class LessonJoinDAO @javax.inject.Inject()(
   /**
   * lessonjoinの追加
   */
-  def insert(request: LessonJoin) = {
-    
+  def insert(insertData: LessonJoin) = {
+    db.run {
+      slick returning slick.map(_.id) += insertData
+    }
   }
 
   //-- テーブル定義 --//

@@ -8,6 +8,7 @@ import persistence.category.dao.CategoryDao
 import persistence.request.dao.RequestDAO
 import persistence.teacherrequest.dao.TeacherRequestDao
 import persistence.lessonjoin.dao.LessonJoinDAO
+import persistence.lessonjoin.model.LessonJoin
 import model.site.article.{SiteViewValueLesson, SiteViewValueRequest, SiteViewValueSearch}
 import model.component.util.ViewValuePageLayout
 import mvc.action.AuthenticationAction
@@ -100,7 +101,7 @@ class ArticleController @javax.inject.Inject()(
         locSeq       <- daoLocation.filterByIds(Location.Region.IS_PREF_ALL)
         catSeq       <- daoCategory.findAll
         Some(lesson) <- teacherRequestDao.get(lessonId)
-        lessonJoins      <- lessonJoinDao.filterByLessonId(lessonId)
+        lessonJoins  <- lessonJoinDao.filterByLessonId(lessonId)
       } yield {
         val vv = SiteViewValueLesson(
           layout     = ViewValuePageLayout(id = r.uri),
@@ -110,5 +111,11 @@ class ArticleController @javax.inject.Inject()(
         )
         Ok(views.html.site.article.lesson.Main(vv, lessonJoins.size))
       }
+    }
+    // 参加追加
+    def insertLessonJoin(userId: Long, lessonId: Long) = Action { implicit r =>
+      val insertData = LessonJoin(None, userId, lessonId)
+      lessonJoinDao.insert(insertData)
+      Redirect(routes.ArticleController.showLesson(lessonId))
     }
 }
