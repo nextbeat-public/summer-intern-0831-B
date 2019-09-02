@@ -9,9 +9,11 @@ import persistence.request.dao.RequestDAO
 import model.component.util.ViewValuePageLayout
 import model.site.input.request.SiteViewValueInputRequest
 import model.site.input.lesson.SiteViewValueInputLesson
+import model.site.input.request.SiteViewValueInputRequest.formForRequest
 import mvc.action.AuthenticationAction
 import persistence.category.dao.CategoryDao
 import persistence.teacherrequest.dao.TeacherRequestDao
+
 
 class InputController @javax.inject.Inject()(
   val requestDao: RequestDAO,
@@ -34,6 +36,7 @@ class InputController @javax.inject.Inject()(
         layout     = ViewValuePageLayout(id = r.uri),
         locations  = locSeq,
         categories = catSeq,
+        form       = formForRequest,
       )
       Ok(views.html.site.input.request.Main(vv))
     }
@@ -42,22 +45,25 @@ class InputController @javax.inject.Inject()(
   /**
   * 住民提案の追加
   */
-//  def requestInput = Action.async { implicit r =>
-//    formForRequest.bindFromRequest.fold(
-//      errors  => {
-//        for {
-//          locSeq <- daoLocation.filterByIds(Location.Region.IS_PREF_ALL)
-//          catSeq <- daoCategory.findAll
-//        } yield {
-//          Redirect(routes.TopController.show)
-//        }
-//      },
-//      request => {
-//        requestDao.insert(request)
-//      }
-//    )
-//    Redirect(routes.TopController.show)
-//  }
+  def requestInput = Action.async { implicit r =>
+    formForRequest.bindFromRequest.fold(
+      errors  => {
+        for {
+          locSeq <- daoLocation.filterByIds(Location.Region.IS_PREF_ALL)
+          catSeq <- daoCategory.findAll
+        } yield {
+          Redirect("/")
+        }
+      },
+      requestForm => {
+        for {
+          _ <- requestDao.insert(requestForm.toRequest)
+        } yield {
+          Redirect("/")
+        }
+      }
+    )
+  }
 
   /**
   * 講師提案の入力ページ
