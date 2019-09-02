@@ -15,6 +15,7 @@ import mvc.action.AuthenticationAction
 import persistence.category.dao.CategoryDao
 import persistence.teacherrequest.dao.TeacherRequestDao
 
+
 class InputController @javax.inject.Inject()(
   val requestDao: RequestDAO,
   val teacherRequestDao: TeacherRequestDao,
@@ -36,10 +37,15 @@ class InputController @javax.inject.Inject()(
         layout     = ViewValuePageLayout(id = r.uri),
         locations  = locSeq,
         categories = catSeq,
+        form       = formForRequest,
       )
       Ok(views.html.site.input.request.Main(vv))
     }
   }
+
+  /**
+  * 住民提案の追加
+  */
   def requestInput = Action.async { implicit r =>
     formForRequest.bindFromRequest.fold(
       errors  => {
