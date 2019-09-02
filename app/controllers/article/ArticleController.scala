@@ -7,6 +7,10 @@ import persistence.geo.dao.LocationDAO
 import persistence.category.dao.CategoryDao
 import persistence.request.dao.RequestDAO
 import persistence.teacherrequest.dao.TeacherRequestDao
+import persistence.lessonjoin.dao.LessonJoinDAO
+import persistence.lessonjoin.model.LessonJoin
+import persistence.requestgood.dao.RequestGoodDAO
+import persistence.requestgood.model.RequestGood
 import model.site.article.{SiteViewValueLesson, SiteViewValueRequest, SiteViewValueSearch}
 import model.component.util.ViewValuePageLayout
 import model.site.article.FormValueForSiteSearch.formForSearch
@@ -15,6 +19,8 @@ import mvc.action.AuthenticationAction
 class ArticleController @javax.inject.Inject()(
   val requestDao: RequestDAO,
   val teacherRequestDao: TeacherRequestDao,
+  val lessonJoinDao: LessonJoinDAO,
+  val requestGoodDao: RequestGoodDAO,
   val daoLocation: LocationDAO,
   val daoCategory: CategoryDao,
   cc: MessagesControllerComponents
@@ -78,11 +84,13 @@ class ArticleController @javax.inject.Inject()(
     /**
     * ユーザ提案
     */
-    def showRequest(requestId: Long) = Action.async { implicit r =>
+    def showRequest(requestId: Long) = (Action andThen AuthenticationAction()).async { implicit r =>
       for {
         locSeq        <- daoLocation.filterByIds(Location.Region.IS_PREF_ALL)
         catSeq        <- daoCategory.findAll
         Some(request) <- requestDao.get(requestId)
+        requestGoods  <- requestGoodDao.filterByRequestId(requestId)
+        alreadyGood   <- requestGoodDao.filterByUserAndRequestId(r.userId, requestId)
       } yield {
         val vv = SiteViewValueRequest(
           layout     = ViewValuePageLayout(id = r.uri),
@@ -90,18 +98,26 @@ class ArticleController @javax.inject.Inject()(
           categories = catSeq,
           request    = request,
         )
-        Ok(views.html.site.article.request.Main(vv))
+        Ok(views.html.site.article.request.Main(vv, requestGoods.size, alreadyGood.size))
       }
+    }
+    // いいね
+    def insertRequestGood(requestId: Long) = (Action andThen AuthenticationAction()) { implicit r =>
+      val insertData = RequestGood(None, r.userId, requestId)
+      requestGoodDao.insert(insertData)
+      Redirect(routes.ArticleController.showRequest(requestId))
     }
 
     /**
     * 授業提案
     */
-    def showLesson(lessonId: Long) = Action.async { implicit r =>
+    def showLesson(lessonId: Long) = (Action andThen AuthenticationAction()).async { implicit r =>
       for {
         locSeq       <- daoLocation.filterByIds(Location.Region.IS_PREF_ALL)
         catSeq       <- daoCategory.findAll
         Some(lesson) <- teacherRequestDao.get(lessonId)
+        lessonJoins  <- lessonJoinDao.filterByLessonId(lessonId)
+        alreadyJoin  <- lessonJoinDao.filterByUserAndLessonId(r.userId, lessonId)
       } yield {
         val vv = SiteViewValueLesson(
           layout     = ViewValuePageLayout(id = r.uri),
@@ -109,7 +125,13 @@ class ArticleController @javax.inject.Inject()(
           categories = catSeq,
           lesson     = lesson,
         )
-        Ok(views.html.site.article.lesson.Main(vv))
+        Ok(views.html.site.article.lesson.Main(vv, lessonJoins.size, alreadyJoin.size))
       }
+    }
+    // 参加追加
+    def insertLessonJoin(lessonId: Long) = (Action andThen AuthenticationAction()) { implicit r =>
+      val insertData = LessonJoin(None, r.userId, lessonId)
+      lessonJoinDao.insert(insertData)
+      Redirect(routes.ArticleController.showLesson(lessonId))
     }
 }

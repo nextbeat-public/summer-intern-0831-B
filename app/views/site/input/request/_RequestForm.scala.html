@@ -10,5 +10,61 @@
 @import persistence.udb.model.User
 @import play.api.data.Form
 
-@(vv: SiteViewValueInputRequest)
+@(vv: SiteViewValueInputRequest)(implicit messages: play.api.i18n.Messages)
 
+@views.html.common.layout.InnerContent("site-app-new-user-form", "content") {
+  <h3 class="content__section header">
+    <span class="header__title">新規リクエスト登録</span>
+  </h3>
+
+  <div class="content__section form">
+    @helper.form(action = controllers.input.routes.InputController.requestInput()) {
+
+      @** 名前 *@
+      <div class="form__section name">
+        <span class="form__section name">
+          @helper.inputText(
+            vv.form("name"),
+            '_label           -> "リクエスト名",
+            '_showConstraints -> false
+          )
+        </span>
+      </div>
+
+      <div class="form__section pref inline">
+        @helper.select(
+          field   = vv.form("locationId"),
+          options = vv.locations.map(v => (v.id, v.namePref)),
+          '_label           -> "開催地域(都道府県)",
+          '_showConstraints -> false
+        )
+      </div>
+
+      <div class="form__section pref inline">
+        @helper.select(
+          field   = vv.form("categoryId"),
+          options = vv.categories.map(v => (v.id, v.name)),
+          '_label           -> "カテゴリ",
+          '_showConstraints -> false
+        )
+      </div>
+
+      <div class="form__section name">
+        <span class="form__section name">
+          @helper.textarea(
+            vv.form("detail"),
+            '_label           -> "詳細事項",
+            '_showConstraints -> false
+          )
+        </span>
+      </div>
+
+      @** 登録ボタン *@
+      <div class="form__section submit">
+        <button class="button button-stroked" type="submit">
+          <span class="submit__text">新規リクエスト登録</span>
+        </button>
+      </div>
+	}
+  </div>
+}
