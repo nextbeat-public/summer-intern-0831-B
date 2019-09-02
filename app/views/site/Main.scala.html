@@ -1,0 +1,20 @@
+@*
+ * This file is part of the Nextbeat services.
+ *
+ * For the full copyright and license information,
+ * please view the LICENSE file that was distributed with this source code.
+ *@
+ 
+@import model.site.top.SiteViewValueTop
+
+@(vv: SiteViewValueTop)(implicit messages: play.api.i18n.Messages)
+@views.html.common.layout.Default(vv.layout) {
+  @views.html.common.layout.ContentLayout(
+    id      = "site-input-lesson",
+    content = tplContent
+  )
+}
+@** テンプレート: コンテンツ *@
+@tplContent = {
+  @views.html.site._Top(vv)
+}
